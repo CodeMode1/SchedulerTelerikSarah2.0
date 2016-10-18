@@ -21,7 +21,6 @@ import { AuthService } from './auth.service';
     styles: [`
         .router-link-active, a:active{
             color:#555;
-            cursor: pointer;
             background-color: #fff;
             border: #px solid #ddd;
             border-bottom-color: transparent;

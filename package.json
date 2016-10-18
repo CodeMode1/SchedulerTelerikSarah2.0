@@ -8,6 +8,7 @@
     "typings": "typings",
     "vendor": "gulp vendor",
     "gulp": "gulp clean && gulp",
+    "inject": "gulp inject",
     "build:production": "gulp clean && gulp build && node systemjs.builder.js"
   },
   "dependencies": {
@@ -42,6 +43,7 @@
   "devDependencies": {
     "del": "^2.2.0",
     "gulp": "^3.9.1",
+    "gulp-inject": "^4.1.0",
     "gulp-sourcemaps": "^1.6.0",
     "gulp-typescript": "^2.13.6",
     "systemjs-builder": "^0.15.19"

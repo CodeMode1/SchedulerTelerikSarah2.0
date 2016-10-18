@@ -1,4 +1,5 @@
 var gulp = require('gulp');
+var inject = require('gulp-inject');
 
 //import gulp dependencies. 
 var gulpTypescript = require('gulp-typescript');
@@ -69,6 +70,20 @@ gulp.task('vendor', function () {
         .pipe(gulp.dest(vendor + '/zone.js/'));
 });
 
+//task qui build dynamiquement les script css du folder public(css global du projet) dans index.hbs.
+gulp.task('inject', function () {
+    //src fichiers
+    var injectSrc = gulp.src('./public/stylesheets/*.css', {
+        read: false
+    });
+    var injectOptions = {
+        ignorePath: '/public/'
+    }
+    return gulp.src('./views/index.hbs')
+        .pipe(inject(injectSrc, injectOptions))
+        .pipe(gulp.dest('./views'));
+});
+
 //task qui surveille changement dans fichiers TS et html,htm,css du dossier dév et exécute un build.
 gulp.task('watch', function () {
     gulp.watch(appDev + '**/*.ts', ['build-ts']);
@@ -76,6 +91,6 @@ gulp.task('watch', function () {
 });
 
 //task défaut si npm run gulp.Démarre le watch, démarre un premier build/build-copy, build des dépendances production Angular. 
-gulp.task('default', ['watch', 'build-ts', 'build-copy', 'vendor']);
+gulp.task('default', ['inject', 'watch', 'build-ts', 'build-copy', 'vendor']);
 //task de build pour la production(déploiement).
 gulp.task('build', ['build-ts', 'build-copy', 'vendor']);

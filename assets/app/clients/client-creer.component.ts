@@ -21,6 +21,16 @@ interface ResultatValidation {
                 </div>
                 <div class="col-md-12 outer">
                     <div class="col-md-6 form-group">
+                        <label for="noClient">No Client</label>
+                        <input type="text" id="noClient" class="form-control" formControlName="noClient" placeholder="client #" [(ngModel)]="this.myClient.noClient" readonly>
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label for="noCompte">No Compte</label>
+                        <input type="text" id="noCompte" class="form-control" formControlName="noCompte" placeholder="account #" [(ngModel)]="this.myClient.noCompte">
+                    </div>
+                </div>
+                <div class="col-md-12 outer">
+                    <div class="col-md-6 form-group">
                         <label for="prenom">Prénom</label>
                         <input type="text" id="prenom" class="form-control" formControlName="prenom" placeholder="firstname" [(ngModel)]="this.myClient.prenom">
                     </div>
@@ -31,12 +41,15 @@ interface ResultatValidation {
                 </div>
                 <div class="col-md-12 outer">
                     <div class="col-md-6 form-group">
-                        <label for="noCompte">No Compte</label>
-                        <input type="text" id="noCompte" class="form-control" formControlName="noCompte" placeholder="account #" [(ngModel)]="this.myClient.noCompte">
+                        <label for="telPrincipal">Tél. Principal</label>
+                        <input type="text" #inputTP (input)="formatTP(inputTP)" id="telPrincipal" class="form-control" formControlName="telPrincipal" placeholder="main #" [(ngModel)]="this.myClient.telPrincipal">
+                        <p class="text-danger" [hidden]="creerClientForm.controls.telPrincipal.valid || (creerClientForm.controls.telPrincipal.pristine)">
+                            Invalide. Tél à 10 chiffres. Example: (514)123-4567.
+                        </p>
                     </div>
                     <div class="col-md-6 form-group">
-                        <label for="courriel">Courriel</label>
-                        <input type="email" id="courriel" class="form-control" placeholder="my@email.com" formControlName="courriel" [(ngModel)]="this.myClient.courriel">
+                        <label for="telSecondaire">Tél. Secondaire</label>
+                        <input type="text" id="telSecondaire" class="form-control" formControlName="telSecondaire" placeholder="second #" [(ngModel)]="this.myClient.telSecondaire">
                     </div>
                 </div>
                 <div class="col-md-12 outer">
@@ -45,18 +58,34 @@ interface ResultatValidation {
                         <input type="text" id="cell" class="form-control" formControlName="cell" placeholder="cell #" [(ngModel)]="this.myClient.cell">
                     </div>
                     <div class="col-md-6 form-group">
+                        <label for="courriel">Courriel</label>
+                        <input type="email" id="courriel" class="form-control" placeholder="my@email.com" formControlName="courriel" [(ngModel)]="this.myClient.courriel">
+                    </div>
+                </div>
+                <div class="col-md-12 outer">
+                    <div class="col-md-6 form-group">
+                        <label for="fax">Fax</label>
+                        <input type="text" id="fax" class="form-control" formControlName="fax" placeholder="fax #" [(ngModel)]="this.myClient.fax">
+                    </div>
+                    <div class="col-md-6 form-group">
                         <label for="compagnie">Compagnie</label>
                         <input type="text" id="compagnie" class="form-control" formControlName="compagnie" placeholder="business" [(ngModel)]="this.myClient.compagnie">
                     </div>
                 </div>
                 <div class="col-md-12 outer">
-                    <div class="col-md-6 form-group">
+                    <div class="col-md-12 form-group">
                         <label for="adresse">Adresse</label>
                         <input type="text" id="adresse" class="form-control" formControlName="adresse" placeholder="adress" [(ngModel)]="this.myClient.adresse">
-                    </div>
+                    </div>     
+                </div>
+                <div class="col-md-12 outer">
                     <div class="col-md-6 form-group">
                         <label for="ville">Ville</label>
                         <input type="text" id="ville" class="form-control" formControlName="ville" placeholder="city" [(ngModel)]="this.myClient.ville">
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label for="province">Province</label>
+                        <input type="text" id="province" class="form-control" formControlName="province" placeholder="province" [(ngModel)]="this.myClient.province">
                     </div>
                 </div>
                 <div class="col-md-12 outer">
@@ -68,33 +97,10 @@ interface ResultatValidation {
                         </p>
                     </div>
                     <div class="col-md-6 form-group">
-                        <label for="telPrincipal">Tél. Principal</label>
-                        <input type="text" #inputTP (input)="formatTP(inputTP)" id="telPrincipal" class="form-control" formControlName="telPrincipal" placeholder="main #" [(ngModel)]="this.myClient.telPrincipal">
-                        <p class="text-danger" [hidden]="creerClientForm.controls.telPrincipal.valid || (creerClientForm.controls.telPrincipal.pristine)">
-                            Invalide. Tél à 10 chiffres. Example: (514)123-4567.
-                        </p>
-                    </div>
-                </div>
-                <div class="col-md-12 outer">
-                    <div class="col-md-6 form-group">
-                        <label for="province">Province</label>
-                        <input type="text" id="province" class="form-control" formControlName="province" placeholder="province" [(ngModel)]="this.myClient.province">
-                    </div>
-                    <div class="col-md-6 form-group">
                         <label for="pays">Pays</label>
                         <input type="text" id="pays" class="form-control" formControlName="pays" placeholder="country" [(ngModel)]="this.myClient.pays">
-                    </div>
-                </div>
-                <div class="col-md-12 outer">
-                    <div class="col-md-6 form-group">
-                        <label for="fax">Fax</label>
-                        <input type="text" id="fax" class="form-control" formControlName="fax" placeholder="fax #" [(ngModel)]="this.myClient.fax">
-                    </div>
-                    <div class="col-md-6 form-group">
-                        <label for="telSecondaire">Tél. Secondaire</label>
-                        <input type="text" id="telSecondaire" class="form-control" formControlName="telSecondaire" placeholder="second #" [(ngModel)]="this.myClient.telSecondaire">
-                    </div>
-                </div>
+                    </div>    
+                </div>            
             </section>
             <section class="col-md-2">
             </section>
@@ -270,6 +276,7 @@ export class CreerClientComponent implements OnInit {
 
     ngOnInit() { 
          this.creerClientForm = this._formBuilder.group({
+            noClient: [''],
             prenom: [''],
             nom: ['', Validators.required],
             noCompte: [''],
@@ -314,8 +321,8 @@ export class CreerClientComponent implements OnInit {
     }
 
     formatTP(input){
-        // j'enleve les espaces et les hyphens, globalement
-        var chaine = input.value.replace(/\s+|\u002D+/g, "");
+        // je remplace tout ce qui n'est pas un chiffre par un espace, globalement
+        var chaine = input.value.replace(/[^0-9]/g, "");
         console.log(chaine);
 
         //au 11eme carac tapé, je reconstruis le tel avec ses bons chiffres 
@@ -333,18 +340,6 @@ export class CreerClientComponent implements OnInit {
            chaine.length > 10 et donc la chaine revient non-formattée.
         */
         input.value = chaine;
-    }
-
-    private testCP(){
-        //retoune null (valide)
-            //console.log(this.estCodePostalOK('H2S 0B5')); //ok
-            //console.log(this.estCodePostalOK('h2s 0b5')); //ok
-            //console.log(this.estCodePostalOK('h2s0b5'));  //ok
-
-        //retourne true (fail)
-            //console.log(this.estCodePostalOK('Z3V H2S')); //Ok
-            //console.log(this.estCodePostalOK('z3vh2s'));  //ok
-            //console.log(this.estCodePostalOK('B3V H2'));  //ok
     }
 
     private estCodePostalOK(control: FormControl): ResultatValidation{
@@ -392,39 +387,28 @@ export class CreerClientComponent implements OnInit {
                 return {courrielInvalide: true};
          }
 
-         //validation résussie
+         //validation réussie
          return null;
     }
 
     onSubmit(){
+        //change mode modification, enable bouton Acutaliser et Copier.
         this.modeSoumission = false;
         this.formActualiser = true;
         this.formCopie = true;
         console.log(this.creerClientForm.value);
-        /*const client = new Client(this.creerClientForm.value.prenom, this.creerClientForm.value.nom, this.creerClientForm.value.noCompte, 
-            this.creerClientForm.value.courriel, this.creerClientForm.value.cell, this.creerClientForm.value.compagnie, this.creerClientForm.value.adresse,
-            this.creerClientForm.value.ville, this.creerClientForm.value.codePostal, this.creerClientForm.value.telPrincipal, this.creerClientForm.value.province,
-            this.creerClientForm.value.pays, this.creerClientForm.value.fax, this.creerClientForm.value.telSecondaire, this.creerClientForm.value.memo, this.creerClientForm.value.memoAVenir,
-            this.creerClientForm.value.noExTaxeProv, this.creerClientForm.value.noExTaxeFéd, this.creerClientForm.value.selectStatut, this.creerClientForm.value.selectSource,
-            null, null, this.creerClientForm.value.dateDernEv, this.creerClientForm.value.creePar);
-            */
         console.log('creer Client: ' + this.myClient.prenom + " " + this.myClient.nom + " " + this.myClient.courriel);
         this._clientService.creerClient(this.myClient)
             .subscribe(
                 data => { 
                     console.log('data du serveur :');
                     console.log(data);
-                    //ne fonctionne pas : this._clientService.clients.push(data);
                     this.myClient = data;
-                    console.log("id de "+ data.nom + " : " + data.clientId);
+                    //sauver le _id qui revient dans le client créé par Mongo.
                     this.clientId = data.clientId;
                     console.log("id de "+ data.nom + " : " + this.clientId);
                     console.log("no de client : " + data.noClient);
                     this.myClient.noClient = data.noClient;
-                    // this.adminFullNom = data.creerPar;
-                    //this.date = data.dateCree;
-                    // TODO Sauver le _id qui revient dans le client créé par Mongo.
-                    // TODO Change mode modification, enable bouton Acutaliser et Copier.
                     alert('Client sauvegarder: ' + <Client>(data.prenom) + " " + <Client>(data.nom));
             },
                 error => this._errorService.handleError(error)
@@ -432,41 +416,17 @@ export class CreerClientComponent implements OnInit {
     
     }
 
+    private testCP(){
+        //retoune null (valide)
+            //console.log(this.estCodePostalOK('H2S 0B5')); //ok
+            //console.log(this.estCodePostalOK('h2s 0b5')); //ok
+            //console.log(this.estCodePostalOK('h2s0b5'));  //ok
 
-/*
-private toDateString(date: Date): string {
-        return (date.getFullYear().toString() + '-' 
-           + ("0" + (date.getMonth() + 1)).slice(-2) + '-' 
-           + ("0" + (date.getDate())).slice(-2)) + " "
-           + date.toTimeString().slice(0,5);
-
+        //retourne true (fail)
+            //console.log(this.estCodePostalOK('Z3V H2S')); //Ok
+            //console.log(this.estCodePostalOK('z3vh2s'));  //ok
+            //console.log(this.estCodePostalOK('B3V H2'));  //ok
     }
-    */
-
-    /*
-    getCreePar(){
-        //var monObjet_json = localStorage.getItem("token");
-        //var monObjet = JSON.parse(monObjet_json);
-        //console.log(monObjet);
-        //this.admin = <Admin>JSON.parse(localStorage.getItem('admin'));
-        //this.adminFullNom = this.admin.nom;
-
-        //var monObjet_json = localStorage.getItem('token');
-        //var monObg = JSON.parse(monObjet_json);
-        //console.log(monObg);
-
-        this._clientService.getAdminLoggue().subscribe(
-            data => { 
-                var admin: Admin;
-                admin = data;
-                this.adminFullNom = admin.prenom +  " " + admin.nom;
-                console.log(admin);
-            },
-            error => this._errorService.handleError(error)
-        );
-    }
-    */
-    //[value]="inputCP.value.toUpperCase()" (change)="addSpace(this)"
 }
 
 

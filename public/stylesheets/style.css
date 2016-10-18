@@ -1,28 +1,40 @@
 body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-  padding:0;
-  margin:0;
+  padding: 0;
+  margin: 0;
 }
+
+
+/* config défaut a*/
 
 a {
   color: #00B7FF;
   cursor: pointer;
+  text-decoration: none;
 }
 
 a:hover,
 a:active {
   color: #00B7FF;
-  text-decoration: underline;
 }
 
 a.danger {
   color: red;
 }
 
+
+/* class pour donner espace */
+
 .spacing {
   padding: 4% 0 4% 0;
 }
 
-.ng-invalid.ng-touched{
+
+/* class pour les erreurs inputs lorsque touché et invalide */
+
+.ng-invalid.ng-touched {
   border: 1px solid red;
 }
+
+
+/* CSS Medi Queries : Responsive Adaptation */

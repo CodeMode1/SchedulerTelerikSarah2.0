@@ -46,7 +46,6 @@ import { CapitalizePipe } from '../pipes/capitalize.pipe';
         }
 
         a{
-            text-decoration: none;
             color: #000;
             display: block;
             clear: both;
