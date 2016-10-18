@@ -1,0 +1,35 @@
+"use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var core_1 = require("@angular/core");
+var auth_service_1 = require('../auth/auth.service');
+var HeaderComponent = (function () {
+    function HeaderComponent(_authService) {
+        this._authService = _authService;
+        this.title = "Système abordable de réservation et agenda";
+    }
+    HeaderComponent.prototype.ngOnInit = function () {
+    };
+    HeaderComponent.prototype.estLogIn = function () {
+        return this._authService.estLogIn();
+    };
+    HeaderComponent = __decorate([
+        core_1.Component({
+            selector: 'my-header',
+            template: "\n        <header class=\"row\">\n            <div class=\"col-md-12\">\n                <my-logo></my-logo>\n            </div>\n            <nav class=\"col-md-12\" *ngIf=\"estLogIn()\">\n                <ul class=\"nav nav-pills\">\n                    <li><a>Agenda</a></li>\n                    <li><a [routerLink]=\"['/clients']\" routerLinkActive=\"router-link-active\">Clients</a></li>\n                    <li><a>\u00C9v\u00E8nements</a></li>\n                    <li><a>Ressources</a></li>\n                </ul>\n            </nav>\n        </header>\n    ",
+            styles: ["\n        header {\n            width: auto;\n            height:auto;\n            margin-top: 0px;\n            padding: 0 0 0 0;\n            background-color: #d7e1ee;\n        }\n\n        .row{\n            margin-left:0;\n            margin-right:0;\n        }\n\n        nav{\n            background-color: white;\n            padding:1% 0 1% 0;\n            clear:both;\n            float:left;\n            width:100%;\n        }\n\n        div{\n            float:left;\n            margin:0;\n            padding:0;\n            background-color: #d7e1ee;\n        }\n\n        ul{\n          text-align: left;  \n        }\n\n        li {\n            float: none;\n            display: inline-block;\n            padding: 0 3% 0 0;\n        }\n\n        li a{\n            font-size:1.5vw;\n        }\n\n        li:nth-of-type(1){\n            padding: 0 3% 0 5%;\n        }\n        \n        .router-link-active{\n            background-color: #337ab7;\n            color: white;\n        }\n\n        .my-login{\n            position:absolute;\n            bottom:0;\n        }\n    "]
+        }), 
+        __metadata('design:paramtypes', [auth_service_1.AuthService])
+    ], HeaderComponent);
+    return HeaderComponent;
+}());
+exports.HeaderComponent = HeaderComponent;
+
+//# sourceMappingURL=data:application/json;charset=utf8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImhlYWRlci9oZWFkZXIuY29tcG9uZW50LnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiI7Ozs7Ozs7Ozs7QUFBQSxxQkFBa0MsZUFBZSxDQUFDLENBQUE7QUFDbEQsNkJBQTRCLHNCQUFzQixDQUFDLENBQUE7QUE2RW5EO0lBR0kseUJBQW9CLFlBQXlCO1FBQXpCLGlCQUFZLEdBQVosWUFBWSxDQUFhO1FBRjdDLFVBQUssR0FBVyw0Q0FBNEMsQ0FBQztJQUk3RCxDQUFDO0lBRUQsa0NBQVEsR0FBUjtJQUNBLENBQUM7SUFFRCxrQ0FBUSxHQUFSO1FBQ0ksTUFBTSxDQUFDLElBQUksQ0FBQyxZQUFZLENBQUMsUUFBUSxFQUFFLENBQUM7SUFDeEMsQ0FBQztJQXZGTDtRQUFDLGdCQUFTLENBQUM7WUFDUCxRQUFRLEVBQUUsV0FBVztZQUNyQixRQUFRLEVBQUUseWpCQWNUO1lBQ0QsTUFBTSxFQUFFLENBQUMsOGtDQXdEUixDQUFDO1NBQ0wsQ0FBQzs7dUJBQUE7SUFjRixzQkFBQztBQUFELENBYkEsQUFhQyxJQUFBO0FBYlksdUJBQWUsa0JBYTNCLENBQUEiLCJmaWxlIjoiaGVhZGVyL2hlYWRlci5jb21wb25lbnQuanMiLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgeyBDb21wb25lbnQsIE9uSW5pdCB9IGZyb20gXCJAYW5ndWxhci9jb3JlXCI7XHJcbmltcG9ydCB7IEF1dGhTZXJ2aWNlIH0gZnJvbSAnLi4vYXV0aC9hdXRoLnNlcnZpY2UnO1xyXG5cclxuQENvbXBvbmVudCh7XHJcbiAgICBzZWxlY3RvcjogJ215LWhlYWRlcicsXHJcbiAgICB0ZW1wbGF0ZTogYFxyXG4gICAgICAgIDxoZWFkZXIgY2xhc3M9XCJyb3dcIj5cclxuICAgICAgICAgICAgPGRpdiBjbGFzcz1cImNvbC1tZC0xMlwiPlxyXG4gICAgICAgICAgICAgICAgPG15LWxvZ28+PC9teS1sb2dvPlxyXG4gICAgICAgICAgICA8L2Rpdj5cclxuICAgICAgICAgICAgPG5hdiBjbGFzcz1cImNvbC1tZC0xMlwiICpuZ0lmPVwiZXN0TG9nSW4oKVwiPlxyXG4gICAgICAgICAgICAgICAgPHVsIGNsYXNzPVwibmF2IG5hdi1waWxsc1wiPlxyXG4gICAgICAgICAgICAgICAgICAgIDxsaT48YT5BZ2VuZGE8L2E+PC9saT5cclxuICAgICAgICAgICAgICAgICAgICA8bGk+PGEgW3JvdXRlckxpbmtdPVwiWycvY2xpZW50cyddXCIgcm91dGVyTGlua0FjdGl2ZT1cInJvdXRlci1saW5rLWFjdGl2ZVwiPkNsaWVudHM8L2E+PC9saT5cclxuICAgICAgICAgICAgICAgICAgICA8bGk+PGE+w4l2w6huZW1lbnRzPC9hPjwvbGk+XHJcbiAgICAgICAgICAgICAgICAgICAgPGxpPjxhPlJlc3NvdXJjZXM8L2E+PC9saT5cclxuICAgICAgICAgICAgICAgIDwvdWw+XHJcbiAgICAgICAgICAgIDwvbmF2PlxyXG4gICAgICAgIDwvaGVhZGVyPlxyXG4gICAgYCxcclxuICAgIHN0eWxlczogW2BcclxuICAgICAgICBoZWFkZXIge1xyXG4gICAgICAgICAgICB3aWR0aDogYXV0bztcclxuICAgICAgICAgICAgaGVpZ2h0OmF1dG87XHJcbiAgICAgICAgICAgIG1hcmdpbi10b3A6IDBweDtcclxuICAgICAgICAgICAgcGFkZGluZzogMCAwIDAgMDtcclxuICAgICAgICAgICAgYmFja2dyb3VuZC1jb2xvcjogI2Q3ZTFlZTtcclxuICAgICAgICB9XHJcblxyXG4gICAgICAgIC5yb3d7XHJcbiAgICAgICAgICAgIG1hcmdpbi1sZWZ0OjA7XHJcbiAgICAgICAgICAgIG1hcmdpbi1yaWdodDowO1xyXG4gICAgICAgIH1cclxuXHJcbiAgICAgICAgbmF2e1xyXG4gICAgICAgICAgICBiYWNrZ3JvdW5kLWNvbG9yOiB3aGl0ZTtcclxuICAgICAgICAgICAgcGFkZGluZzoxJSAwIDElIDA7XHJcbiAgICAgICAgICAgIGNsZWFyOmJvdGg7XHJcbiAgICAgICAgICAgIGZsb2F0OmxlZnQ7XHJcbiAgICAgICAgICAgIHdpZHRoOjEwMCU7XHJcbiAgICAgICAgfVxyXG5cclxuICAgICAgICBkaXZ7XHJcbiAgICAgICAgICAgIGZsb2F0OmxlZnQ7XHJcbiAgICAgICAgICAgIG1hcmdpbjowO1xyXG4gICAgICAgICAgICBwYWRkaW5nOjA7XHJcbiAgICAgICAgICAgIGJhY2tncm91bmQtY29sb3I6ICNkN2UxZWU7XHJcbiAgICAgICAgfVxyXG5cclxuICAgICAgICB1bHtcclxuICAgICAgICAgIHRleHQtYWxpZ246IGxlZnQ7ICBcclxuICAgICAgICB9XHJcblxyXG4gICAgICAgIGxpIHtcclxuICAgICAgICAgICAgZmxvYXQ6IG5vbmU7XHJcbiAgICAgICAgICAgIGRpc3BsYXk6IGlubGluZS1ibG9jaztcclxuICAgICAgICAgICAgcGFkZGluZzogMCAzJSAwIDA7XHJcbiAgICAgICAgfVxyXG5cclxuICAgICAgICBsaSBhe1xyXG4gICAgICAgICAgICBmb250LXNpemU6MS41dnc7XHJcbiAgICAgICAgfVxyXG5cclxuICAgICAgICBsaTpudGgtb2YtdHlwZSgxKXtcclxuICAgICAgICAgICAgcGFkZGluZzogMCAzJSAwIDUlO1xyXG4gICAgICAgIH1cclxuICAgICAgICBcclxuICAgICAgICAucm91dGVyLWxpbmstYWN0aXZle1xyXG4gICAgICAgICAgICBiYWNrZ3JvdW5kLWNvbG9yOiAjMzM3YWI3O1xyXG4gICAgICAgICAgICBjb2xvcjogd2hpdGU7XHJcbiAgICAgICAgfVxyXG5cclxuICAgICAgICAubXktbG9naW57XHJcbiAgICAgICAgICAgIHBvc2l0aW9uOmFic29sdXRlO1xyXG4gICAgICAgICAgICBib3R0b206MDtcclxuICAgICAgICB9XHJcbiAgICBgXVxyXG59KVxyXG5leHBvcnQgY2xhc3MgSGVhZGVyQ29tcG9uZW50IGltcGxlbWVudHMgT25Jbml0IHtcclxuICAgIHRpdGxlOiBzdHJpbmcgPSBcIlN5c3TDqG1lIGFib3JkYWJsZSBkZSByw6lzZXJ2YXRpb24gZXQgYWdlbmRhXCI7XHJcblxyXG4gICAgY29uc3RydWN0b3IocHJpdmF0ZSBfYXV0aFNlcnZpY2U6IEF1dGhTZXJ2aWNlKXtcclxuXHJcbiAgICB9XHJcblxyXG4gICAgbmdPbkluaXQoKXtcclxuICAgIH1cclxuXHJcbiAgICBlc3RMb2dJbigpe1xyXG4gICAgICAgIHJldHVybiB0aGlzLl9hdXRoU2VydmljZS5lc3RMb2dJbigpO1xyXG4gICAgfVxyXG59Il19

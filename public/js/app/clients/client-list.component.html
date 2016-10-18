@@ -1,0 +1,105 @@
+<section>
+<div class="panel panel-primary">
+    <div class="panel-body">
+        <div class="col-md-7">
+            <label id="searchLabel" class="col-md-3 control-label" for="searchNumClient">Rechercher par Numéro de Client : </label>
+            <div class="input-group col-md-5">
+                <span class="input-group-addon" aria-hidden="true" id="searchNumClient"><span class="glyphicon glyphicon-search"></span></span>
+                <input type="text" class="form-control" placeholder="search">
+            </div>
+        </div>
+        <div class="col-md-5">
+            <div class="widgets">
+                <span class="glyphicon glyphicon-plus size" aria-hidden="true"><a [routerLink]="['creer']">Créer</a></span>
+            </div>
+            <div class="widgets">
+                <span class="glyphicon glyphicon-duplicate size" aria-hidden="true">Copie</span>
+            </div>
+            <div class="widgets">
+                <span class="glyphicon glyphicon-pencil size" aria-hidden="true">Modifier</span>
+            </div>
+            <div class="widgets">
+                <span class="glyphicon glyphicon-minus size" aria-hidden="true">Supprimer</span>
+            </div>
+            <div class="widgets">
+                <input id="specialSearch" type="text" class="form-control" placeholder="search">
+            </div>
+        </div>
+    </div>
+    <div class="panel-heading">
+        <h3>{{titre}}</h3>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-striped table-hover">
+            <thead>
+                <tr>
+                    <th>CODE CLIENT</th>
+                    <th>NO COMPTE</th>
+                    <th>COMPAGNIE</th>
+                    <th>PRÉNOM</th>
+                    <th>NOM</th>
+                    <th>CELLULAIRE</th>
+                    <th>COURRIEL</th> 
+                    <th>ADRESSE</th>
+                    <th>VILLE</th>
+                    <th>CODE POSTAL</th>
+                    <th>TÉL PRINCIPAL</th>
+                    <th>FAX</th>
+                    <th>CRÉÉ PAR</th>
+                    <th>CRÉÉ</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let client of clients; let i=index">
+                    <td>{{client?.noClient}}</td>
+                    <td>{{client?.noCompte}}</td>
+                    <td>{{client?.compagnie | capitalize}}</td>
+                    <td>{{client?.prenom | capitalize}}</td>
+                    <td>{{client?.nom | capitalize}}</td>
+                    <td>{{client?.cell}}</td>
+                    <td>{{client?.courriel}}</td>
+                    <td>{{client?.adresse | capitalize}}</td>
+                    <td>{{client?.ville | capitalize}}</td>
+                    <td>{{client?.codePostal }}</td>
+                    <td>{{client?.telPrincipal}}</td>
+                    <td>{{client?.fax}}</td>
+                    <td>{{client?.creerPar | capitalize}}</td>
+                    <td>{{client?.dateCree | date:'yyyy-MM-dd HH:mm'}}</td>
+                </tr>
+                <tr *ngIf="!clients || !clients.length">
+                    <td class="bg-danger" colspan="14">Aucuns clients</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</section>
+<div class="col-md-12 footer">
+    <div class="col-md-12 divFooter">
+        <button type="button" class="btn btn-primary">
+        <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>
+            Actualiser
+        </button>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+<!--todo later: filter pipe numero client embed pipe -->
+
+<!-- bouton creer copie, modifier, supprim, search bar (WIDGET COMPONENT EMBED)-->
+
+
+<!-- liste (table tape html ici) 
+ chaque client est une row ( affiche individuellemet pour tous les messages du array )
+ ici la table a le head de defini et on demande au client (row) de safficher
+ <head>
+<tbody>
+ <my-client *ngFor="let client of client" [client]="client" (editClicked)="message.content = $event"></my-client>
+ <tbody>
+-->
