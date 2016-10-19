@@ -11,7 +11,7 @@ import { ErreurService } from './erreur.service';
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" aria-label="Close" (click)="onErreurHandled()"><span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title">{{erreurData?.title}}</h4>
+                        <h4 class="modal-title">{{erreurData?.titre}}</h4>
                     </div>
                     <div class="modal-body">
                      <p>{{erreurData?.message}}</p>
@@ -19,9 +19,9 @@ import { ErreurService } from './erreur.service';
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" (click)="onErreurHandled()">Close</button>
                     </div>
-                </div><!-- /.modal-content -->
-            </div><!-- /.modal-dialog -->
-        </div><!-- /.modal -->     
+                </div>
+            </div>
+        </div>   
     `,
     styles: [`
         .backdrop {
@@ -36,18 +36,18 @@ import { ErreurService } from './erreur.service';
 })
 export class ErreurComponent implements OnInit {
     erreurDisplay = 'none';
-    erreurData = Error;
+    erreurData = Erreur;
 
-    constructor(private errorService:ErreurService){}
+    constructor(private _erreurService:ErreurService){}
 
     onErreurHandled(){
         this.erreurDisplay = 'none';
     }
 
     ngOnInit(){
-        this.errorService.erreurArrivee.subscribe(
-            errorData => {
-                this.erreurData = errorData;
+        this._erreurService.erreurArrivee.subscribe(
+            erreurData => {
+                this.erreurData = erreurData;
                 this.erreurDisplay = 'block';
             }
         );

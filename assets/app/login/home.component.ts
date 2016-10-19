@@ -9,14 +9,14 @@ import { Component, OnInit } from '@angular/core';
             <h2>{{title}}</h2>
             <p><a class="btn btn-primary btn-lg" role="button">Nouvelles</a></p>
         </div>
-        <section class="row col-md-12">
-            <div class="container col-md-4">
+        <section class="row col-md-12 icons">
+            <div class="container col-md-4 icon">
                 <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
             </div>
-            <div class="container col-md-4">
+            <div class="container col-md-4 icon">
                 <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
             </div>
-            <div class="container col-md-4">
+            <div class="container col-md-4 icon">
                 <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>
             </div>
         </section>

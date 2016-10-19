@@ -5,7 +5,7 @@ import { Component, OnInit } from '@angular/core';
     selector: 'my-logo',
     template: `
     <div>
-        <img [src]="path" alt="{{alt}}">
+        <img [src]="path" alt="{{alt}}" id="sarahLogo">
     </div>
     `,
     styles: [`

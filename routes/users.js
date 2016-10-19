@@ -42,9 +42,9 @@ router.post('/signin', function (req, res, next) {
         }
         if (!doc) {
             return res.status(404).json({
-                title: 'aucun admin trouve',
+                title: 'Aucun Usager trouvé',
                 error: {
-                    message: 'admin introuvable'
+                    message: 'Usager introuvable'
                 }
             });
         }

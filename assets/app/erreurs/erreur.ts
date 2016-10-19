@@ -1,3 +1,3 @@
 export class Erreur{
-    constructor(public title: string, public message: string){}
+    constructor(public titre: string, public message: string){}
 }
