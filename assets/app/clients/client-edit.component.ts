@@ -2,8 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { ClientService } from './client.service';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { Client } from './client';
-import { ErrorService } from '../errors/error.service';
-import { Admin } from '../users/admin';
+import { ErreurService } from '../erreurs/erreur.service';
 
 interface ResultatValidation {
     [cle: string]: boolean;
@@ -11,10 +10,13 @@ interface ResultatValidation {
 
 @Component({
     moduleId: module.id,
-    selector: 'my-creer-client',
+    selector: 'my-edit-client',
     template:`
+    <div class="alert alert-success col-md-12" role="alert" *ngIf="this.sauvegardeClient">
+        <p>Client Sauvegardé: {{this.myClient.prenom}} {{this.myClient.nom}}</p>
+    </div>
     <section class="col-md-12 space">
-        <form [formGroup]="creerClientForm" (ngSubmit)="onSubmit()">
+        <form [formGroup]="editClientForm" (ngSubmit)="onSubmit()">
         <section class="col-md-6">
                 <div class="col-md-12 title">
                     <h2>{{identification}}</h2>
@@ -43,7 +45,7 @@ interface ResultatValidation {
                     <div class="col-md-6 form-group">
                         <label for="telPrincipal">Tél. Principal</label>
                         <input type="text" #inputTP (input)="formatTP(inputTP)" id="telPrincipal" class="form-control" formControlName="telPrincipal" placeholder="main #" [(ngModel)]="this.myClient.telPrincipal">
-                        <p class="text-danger" [hidden]="creerClientForm.controls.telPrincipal.valid || (creerClientForm.controls.telPrincipal.pristine)">
+                        <p class="text-danger" [hidden]="editClientForm.controls.telPrincipal.valid || (editClientForm.controls.telPrincipal.pristine)">
                             Invalide. Tél à 10 chiffres. Example: (514)123-4567.
                         </p>
                     </div>
@@ -92,7 +94,7 @@ interface ResultatValidation {
                     <div class="col-md-6 form-group">
                         <label for="codePostal">Code Postal</label>
                         <input type="text" #inputCP (input)="formatCP(inputCP)" id="codePostal" class="form-control" formControlName="codePostal" placeholder="postal code" [(ngModel)]="this.myClient.codePostal">
-                        <p class="text-danger" [hidden]="creerClientForm.controls.codePostal.valid || (creerClientForm.controls.codePostal.pristine)">
+                        <p class="text-danger" [hidden]="editClientForm.controls.codePostal.valid || (editClientForm.controls.codePostal.pristine)">
                             Invalide. D, F, I, O, Q, U, W, Z Invalide. Example: H2S 0B5.
                         </p>
                     </div>
@@ -179,7 +181,7 @@ interface ResultatValidation {
                     </button>
                 </div>
                 <div class="col-md-4 divFooter">
-                    <button type="submit" class="btn btn-primary" [disabled]="!creerClientForm.valid || !modeSoumission">
+                    <button type="submit" class="btn btn-primary" [disabled]="!editClientForm.valid || !modeSoumission">
                         <span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span>
                         Enregistrer
                     </button>
@@ -251,31 +253,35 @@ interface ResultatValidation {
         .dropdown{
             padding:0;
         }
+        .alert-success{
+            text-align:center;
+        }
     `
     ]
 })
-export class CreerClientComponent implements OnInit {
-    identification: string = "Identification";
-    gestion: string = "Gestion";
-    creerClientForm: FormGroup;
-    adminFullNom: string;
-    date: string;
-    myClient : Client;
+export class EditClientComponent implements OnInit {
+    identification: string;
+    gestion: string;
+    editClientForm: FormGroup;
     formCopie: boolean;
     formActualiser: boolean;
     modeSoumission: boolean;
+    sauvegardeClient: boolean;
+    myClient : Client;
     clientId: string;
 
-    constructor(private _formBuilder: FormBuilder, private _clientService: ClientService, private _errorService: ErrorService) {
-        //this.date = "";
+    constructor(private _formBuilder: FormBuilder, private _clientService: ClientService, private _erreurService: ErreurService) {
+        this.identification = "Identification";
+        this.gestion = "Gestion";
         this.myClient = new Client();
         this.formActualiser = false;
         this.formCopie = false;
         this.modeSoumission = true;
+        this.sauvegardeClient = false;
      }
 
     ngOnInit() { 
-         this.creerClientForm = this._formBuilder.group({
+         this.editClientForm = this._formBuilder.group({
             noClient: [''],
             prenom: [''],
             nom: ['', Validators.required],
@@ -304,7 +310,6 @@ export class CreerClientComponent implements OnInit {
             cree: ['']    
         });
         
-        //this.getCreePar();
         //this.testCP();
     }
 
@@ -396,7 +401,7 @@ export class CreerClientComponent implements OnInit {
         this.modeSoumission = false;
         this.formActualiser = true;
         this.formCopie = true;
-        console.log(this.creerClientForm.value);
+        console.log(this.editClientForm.value);
         console.log('creer Client: ' + this.myClient.prenom + " " + this.myClient.nom + " " + this.myClient.courriel);
         this._clientService.creerClient(this.myClient)
             .subscribe(
@@ -409,9 +414,9 @@ export class CreerClientComponent implements OnInit {
                     console.log("id de "+ data.nom + " : " + this.clientId);
                     console.log("no de client : " + data.noClient);
                     this.myClient.noClient = data.noClient;
-                    alert('Client sauvegarder: ' + <Client>(data.prenom) + " " + <Client>(data.nom));
+                    this.sauvegardeClient = true;
             },
-                error => this._errorService.handleError(error)
+                error => this._erreurService.handleErreur(error)
             );
     
     }

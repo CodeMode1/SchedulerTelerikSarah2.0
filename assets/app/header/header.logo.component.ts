@@ -27,9 +27,12 @@ import { Component, OnInit } from '@angular/core';
     ]
 })
 export class LogoComponent implements OnInit {
-    alt: string = "Sarah logo";
-    path: string = "./img/sarah-logo.png";
-    constructor() { }
+    alt: string;
+    path: string;
+    constructor() {
+        this.alt = "Sarah logo";
+        this.path = "./img/sarah-logo.png";
+     }
 
     ngOnInit() { }
 }

@@ -4,17 +4,17 @@ var router = express.Router();
 var passwordHash = require('password-hash');
 var jwt = require('jsonwebtoken');
 
-var Admin = require('../models/admin');
+var User = require('../models/user');
 
-//Crée Admin(User) lors du sign-up.
+//Crée User lors du sign-up.
 router.post('/', function (req, res, next) {
-    var admin = new Admin({
+    var user = new User({
         courriel: req.body.courriel,
         password: passwordHash.generate(req.body.password),
         prenom: req.body.prenom,
         nom: req.body.nom
     });
-    admin.save(function (err, result) {
+    user.save(function (err, result) {
         if (err) {
             return res.status(404).json({
                 title: 'une erreur produite',
@@ -29,9 +29,9 @@ router.post('/', function (req, res, next) {
 });
 
 router.post('/signin', function (req, res, next) {
-    //serveur evoit le token au client si :  Admin est trouvé par email et le password est celui de la bd.
+    //serveur evoit le token au client si :  User est trouvé par email et le password est celui de la bd.
     //client va utiliser ce token pour les futurs requêtes.
-    Admin.findOne({
+    User.findOne({
         courriel: req.body.courriel
     }, function (err, doc) {
         if (err) {
@@ -57,17 +57,17 @@ router.post('/signin', function (req, res, next) {
             });
         }
         /* générer un token et le retourner au client. Encrypter token avec package jsonwebtoken.
-           payload: => renvoyer l'admin, clé secrète pour la validité, expiration token (4 heures).
+           payload: => renvoyer l'user, clé secrète pour la validité, expiration token (4 heures).
         */
         var token = jwt.sign({
-            admin: doc
+            user: doc
         }, 'secret', {
             expiresIn: 14400
         });
         res.status(200).json({
             message: 'Success',
             token: token,
-            adminId: doc._id
+            userId: doc._id
         });
     });
 });

@@ -12,7 +12,7 @@ var mongoose = require('mongoose');
 
 //import les routes de l'app
 var appRoutes = require('./routes/app');
-var adminRoutes = require('./routes/admins');
+var userRoutes = require('./routes/users');
 var clientRoutes = require('./routes/clients')
 
 //Express framework.
@@ -43,7 +43,7 @@ app.use(function (req, res, next) {
 });
 
 //Routing: diriger les requêtes au bon routeur.
-app.use('/admin', adminRoutes);
+app.use('/user', userRoutes);
 app.use('/client', clientRoutes);
 app.use('/', appRoutes);
 

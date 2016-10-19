@@ -1,14 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
-import { Admin } from '../users/admin';
+import { User } from '../users/user';
 import { AuthService } from './auth.service'; 
-import { ErrorService } from '../errors/error.service';
+import { ErreurService } from '../erreurs/erreur.service';
 import { Router } from '@angular/router';
 
 @Component({
     moduleId: module.id,
     selector: 'my-signup',
     template: `
+        <div class="alert alert-success col-md-12" role="alert" *ngIf="this.sauvegardeUser">
+            <p>User Sauvegardé: {{this.nomUser}}</p>
+        </div>
         <section class="col-md-8 col-md-offset-2">
             <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
                 <div class="form-group">
@@ -34,9 +37,14 @@ import { Router } from '@angular/router';
 })
 export class SignupComponent implements OnInit {
     signupForm: FormGroup;
+    sauvegardeUser: boolean;
+    nomUser: string;
     
     constructor(private _formBuilder: FormBuilder, private _authService: AuthService, 
-        private _errorService: ErrorService, private _router: Router) { }
+        private _erreurService: ErreurService, private _router: Router) {
+            this.sauvegardeUser = false;
+            this.nomUser = "";
+         }
 
     ngOnInit() {
         this.signupForm = this._formBuilder.group({
@@ -54,15 +62,16 @@ export class SignupComponent implements OnInit {
 
      onSubmit(){
          console.log(this.signupForm.value);
-         const admin = new Admin(this.signupForm.value.courriel, this.signupForm.value.password, this.signupForm.value.prenom, this.signupForm.value.nom);
-         console.log('sign up: ' + admin.courriel + admin.password + admin.prenom + admin.nom);
-         this._authService.signUp(admin)
+         const user = new User(this.signupForm.value.courriel, this.signupForm.value.password, this.signupForm.value.prenom, this.signupForm.value.nom);
+         console.log('sign up: ' + user.courriel + user.password + user.prenom + user.nom);
+         this._authService.signUp(user)
              .subscribe(
                  data => { 
                      console.log(data);
-                     alert('Membre sauvegarder: ' + <Admin>(data.obj.prenom) + " " + <Admin>(data.obj.nom));
+                     this.sauvegardeUser = true;
+                     this.nomUser = <User>(data.obj.prenom) + " " + <User>(data.obj.nom);
                 },
-                 error => this._errorService.handleError(error)
+                 error => this._erreurService.handleErreur(error)
              );
      }
 }

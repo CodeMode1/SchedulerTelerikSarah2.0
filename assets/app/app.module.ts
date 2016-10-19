@@ -20,13 +20,13 @@ import { LogoutComponent } from './auth/logout.component';
 import { SignupComponent } from './auth/signup.component';
 import { AuthService } from './auth/auth.service';
 
-//errors
-import { ErrorComponent } from './errors/error.component';
-import { ErrorService } from './errors/error.service';
+//erreurs
+import { ErreurComponent } from './erreurs/erreur.component';
+import { ErreurService } from './erreurs/erreur.service';
 
 //client
 import { ClientsComponent } from './clients/clients.component';
-import { CreerClientComponent } from './clients/client-creer.component';
+import { EditClientComponent } from './clients/client-edit.component';
 import { ClientListComponent } from './clients/client-list.component';
 import { ClientService } from './clients/client.service';
 
@@ -38,10 +38,10 @@ import { NouvellesComponent } from './login/nouvelles.component';
 
 @NgModule({
 declarations: [AppComponent, HeaderComponent, LogoComponent, LoginComponent, HomeComponent, SigninComponent, LogoutComponent, 
-    SignupComponent, AuthComponent, ErrorComponent, ClientsComponent, CreerClientComponent, ClientListComponent, NouvellesComponent,
+    SignupComponent, AuthComponent, ErreurComponent, ClientsComponent, EditClientComponent, ClientListComponent, NouvellesComponent,
     CapitalizePipe], 
 imports: [BrowserModule, FormsModule, ReactiveFormsModule, HttpModule, routing],
 bootstrap: [AppComponent],
-providers: [provide(LocationStrategy, {useClass: HashLocationStrategy}), AuthService, ErrorService, ClientService]
+providers: [provide(LocationStrategy, {useClass: HashLocationStrategy}), AuthService, ErreurService, ClientService]
 })
 export class AppModule {}

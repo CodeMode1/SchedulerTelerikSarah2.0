@@ -58,7 +58,6 @@ import { Component, OnInit } from '@angular/core';
     `]
 })
 export class HomeComponent implements OnInit {
-    //background-color:#4c4c4c;
     title: string;
     nouvelles: string;
     constructor() { 

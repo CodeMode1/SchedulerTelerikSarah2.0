@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Admin } from '../users/admin';
+import { User } from '../users/user';
 import { AuthService } from './auth.service';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
-import { ErrorService } from '../errors/error.service';
+import { ErreurService } from '../erreurs/erreur.service';
 
 @Component({
     moduleId: module.id,
@@ -27,7 +27,7 @@ import { ErrorService } from '../errors/error.service';
 export class SigninComponent implements OnInit {
     signinForm: FormGroup;
 
-    constructor(private _formBuilder: FormBuilder, private _authService: AuthService, private _router: Router, private _errorService: ErrorService) { }
+    constructor(private _formBuilder: FormBuilder, private _authService: AuthService, private _router: Router, private _erreurService: ErreurService) { }
 
     ngOnInit() { 
         this.signinForm = this._formBuilder.group({
@@ -46,16 +46,16 @@ export class SigninComponent implements OnInit {
 
     onSubmit(){
         console.log(this.signinForm.value);
-        const admin = new Admin(this.signinForm.value.courriel, this.signinForm.value.password);
-        console.log('sign in: ' + admin.courriel + admin.password);
-        this._authService.signIn(admin)
+        const user = new User(this.signinForm.value.courriel, this.signinForm.value.password);
+        console.log('sign in: ' + user.courriel + user.password);
+        this._authService.signIn(user)
             .subscribe(
                 data => {
                     localStorage.setItem('token', data.token);
-                    localStorage.setItem('adminId', data.adminId);
+                    localStorage.setItem('userId', data.userId);
                     //this._router.navigateByUrl('/');
                 },
-                error => this._errorService.handleError(error)
+                error => this._erreurService.handleErreur(error)
             );
     }
 }

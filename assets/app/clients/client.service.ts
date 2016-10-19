@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers, Response } from '@angular/http';
 import { Client } from './client';
-import { Admin } from '../users/admin';
 import 'rxjs/Rx';
 import { Observable } from 'rxjs/Observable';
 
@@ -36,11 +35,4 @@ export class ClientService {
                 })
                 .catch(error => Observable.throw(error.json() || 'erreur serveur'));
     }
-    
-    getAdminLoggue(): Observable<Admin>{
-        const token = localStorage.getItem('token') ? '?token=' + localStorage.getItem('token') : '';
-        return this._http.get('http://localhost:3000/client/adminLogue' + token)
-            .map((response: Response) => <Admin>response.json().obj)
-            .catch(error => Observable.throw(error.json() || 'erreur serveur'));
-    } 
 }

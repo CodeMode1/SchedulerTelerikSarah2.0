@@ -16,6 +16,7 @@ a {
 a:hover,
 a:active {
   color: #00B7FF;
+  text-decoration: none;
 }
 
 a.danger {

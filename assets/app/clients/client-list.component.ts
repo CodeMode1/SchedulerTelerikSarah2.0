@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Client } from './client';
 import { ClientService } from './client.service';
-import { ErrorService } from '../errors/error.service';
+import { ErreurService } from '../erreurs/erreur.service';
 import { CapitalizePipe } from '../pipes/capitalize.pipe';
 
 @Component({
@@ -78,13 +78,13 @@ export class ClientListComponent implements OnInit {
     titre: string = "Liste des Clients";
     clients: Client[];
     
-    constructor(private _clientService: ClientService, private _errorService: ErrorService) { }
+    constructor(private _clientService: ClientService, private _erreurService: ErreurService) { }
 
     ngOnInit() {
         console.log('dans on init');
         this._clientService.getClients().subscribe(
             data => this.clients = data,
-            error => this._errorService.handleError(error)
+            error => this._erreurService.handleErreur(error)
         ); 
     }
 }

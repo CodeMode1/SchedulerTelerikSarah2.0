@@ -1,4 +1,4 @@
-export class Admin{
+export class User{
     courriel:string;
     password:string;
     prenom: string;

@@ -1,42 +1,96 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var mongooseUniqueValidator = require('mongoose-unique-validator');
-var Admin = require('../models/admin');
 var Sequence = require('../models/sequence');
 var genSequence = Sequence.generateurSequence('client');
 
 var clientSchema = new Schema({
-    noClient: { type: Number},
-    prenom: { type: String},
-    nom: { type: String, required: true, unique: true},
-    noCompte: { type: String},
-    courriel: { type: String},
-    cell: { type: String},
-    compagnie: { type: String},
-    adresse: { type: String},
-    ville: { type: String},
-    codePostal: { type: String},
-    telPrincipal: { type: String},
-    province: { type: String},
-    pays: { type: String},
-    fax: { type: String },
-    telSecondaire: { type: String},
-    memo: { type: String},
-    memoAVenir: { type: String},
-    noExTaxeProv: { type: String},
-    noExTaxeFed: { type: String},
-    selectStatut: { type: String},
-    selectSource: { type: String},
-    modifPar: { type: String},
-    modif: { type: Date},
-    dateDernEv: { type: Date},
-    creerPar: { type: String },
-    dateCree: { type: Date, default: Date.now }
+    noClient: {
+        type: Number
+    },
+    prenom: {
+        type: String
+    },
+    nom: {
+        type: String,
+        required: true,
+        unique: true
+    },
+    noCompte: {
+        type: String
+    },
+    courriel: {
+        type: String
+    },
+    cell: {
+        type: String
+    },
+    compagnie: {
+        type: String
+    },
+    adresse: {
+        type: String
+    },
+    ville: {
+        type: String
+    },
+    codePostal: {
+        type: String
+    },
+    telPrincipal: {
+        type: String
+    },
+    province: {
+        type: String
+    },
+    pays: {
+        type: String
+    },
+    fax: {
+        type: String
+    },
+    telSecondaire: {
+        type: String
+    },
+    memo: {
+        type: String
+    },
+    memoAVenir: {
+        type: String
+    },
+    noExTaxeProv: {
+        type: String
+    },
+    noExTaxeFed: {
+        type: String
+    },
+    selectStatut: {
+        type: String
+    },
+    selectSource: {
+        type: String
+    },
+    modifPar: {
+        type: String
+    },
+    modif: {
+        type: Date
+    },
+    dateDernEv: {
+        type: Date
+    },
+    creerPar: {
+        type: String
+    },
+    dateCree: {
+        type: Date,
+        default: Date.now
+    }
 });
 
-clientSchema.pre('save', function(next){
+clientSchema.pre('save', function (next) {
     var doc = this;
-    genSequence.next(function(nextSeq){
+    genSequence.next(function (nextSeq) {
         doc.noClient = nextSeq;
         next();
     });

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers, Response } from '@angular/http';
-import { Admin } from '../users/admin';
+import { User } from '../users/user';
 import 'rxjs/Rx';
 import { Observable } from 'rxjs/Observable';
 
@@ -9,28 +9,28 @@ export class AuthService {
 
     constructor( private _http: Http) { }
 
-    signUp(admin: Admin){
-        const body = JSON.stringify(admin);
+    signUp(user: User){
+        const body = JSON.stringify(user);
         const header = new Headers({'Content-Type': 'application/json'});
-        return this._http.post('http://localhost:3000/admin', body, {headers: header})
+        return this._http.post('http://localhost:3000/user', body, {headers: header})
             .map((response: Response) => response.json())
             .catch(error => Observable.throw(error.json()));
     }
 
-    signIn(admin: Admin){
-        const body = JSON.stringify(admin);
+    signIn(user: User){
+        const body = JSON.stringify(user);
         const header = new Headers({'Content-Type': 'application/json'});
-        return this._http.post('http://localhost:3000/admin/signin', body, {headers: header})
+        return this._http.post('http://localhost:3000/user/signin', body, {headers: header})
             .map((response: Response) => response.json())
             .catch(error => Observable.throw(error.json()));
     }
 
-    //flush jeton et adminId côté client
+    //flush jeton et userId côté client
     logOut(){
         localStorage.clear();
     }
 
-    //si un admin est loggé
+    //si un user est loggé
     estLogIn(){
         return localStorage.getItem('token') !== null;
     }

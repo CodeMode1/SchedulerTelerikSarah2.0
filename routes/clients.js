@@ -1,16 +1,18 @@
 var express = require('express');
 var router = express.Router();
 var jwt = require('jsonwebtoken');
-var Admin = require('../models/admin');
+var User = require('../models/user');
 var Client = require('../models/client');
 
-router.get('/', function(req, res, next){
+router.get('/', function (req, res, next) {
     var getClients = Client.find();
 
-    getClients.sort({ dateCree: 'desc'})
+    getClients.sort({
+            dateCree: 'desc'
+        })
         .limit(10)
-        .exec(function(err, results){
-            if(err){
+        .exec(function (err, results) {
+            if (err) {
                 return res.status(404).json({
                     title: 'erreur produite',
                     error: err
@@ -23,30 +25,12 @@ router.get('/', function(req, res, next){
         });
 });
 
-router.get('/adminLogue', function(req, res, next){
-    var jwtDecode = jwt.decode(req.query.token);
-
-     Admin.findById(jwtDecode.admin._id, function(err, doc){
-         if(err){
-            return res.status(404).json({
-                title: 'erreur produite',
-                error: err
-            });
-         }
-        res.status(200).json({
-            message: 'succès',
-            obj: doc
-        });
-    });
-});
-
-
 /* middleware : requêtes voyagent de haut en bas. ( defensive programming)
-   seulement un Admin loggué peut voir, créer, modifier et supprimer des clients
+   seulement un User loggué peut voir, créer, modifier et supprimer des clients
 */
-router.use('/', function(req, res, next){
-    jwt.verify(req.query.token, 'secret', function(err, jwtDecode){
-        if(err){
+router.use('/', function (req, res, next) {
+    jwt.verify(req.query.token, 'secret', function (err, jwtDecode) {
+        if (err) {
             return res.status(401).json({
                 title: 'Authentification échouée',
                 error: err
@@ -57,15 +41,15 @@ router.use('/', function(req, res, next){
     });
 });
 
-        
-/* créer des clients
-*/ 
 
-router.post('/', function(req, res, next){
+/* créer des clients
+ */
+
+router.post('/', function (req, res, next) {
     var jwtDecode = jwt.decode(req.query.token);
 
-    Admin.findById(jwtDecode.admin._id, function(err, doc){
-        if(err){
+    User.findById(jwtDecode.user._id, function (err, doc) {
+        if (err) {
             return res.status(404).json({
                 title: 'erreur produite',
                 error: err
@@ -95,10 +79,10 @@ router.post('/', function(req, res, next){
             modifPar: req.body.modifPar,
             modif: req.body.modif,
             dateDernEv: req.body.dateDernEv,
-            creerPar: doc.prenom + " " + doc.nom 
+            creerPar: doc.prenom + " " + doc.nom
         });
-        client.save(function(err, result){
-            if(err){
+        client.save(function (err, result) {
+            if (err) {
                 return res.status(404).json({
                     title: 'erreur produite',
                     error: err
@@ -114,4 +98,3 @@ router.post('/', function(req, res, next){
 });
 
 module.exports = router;
-
