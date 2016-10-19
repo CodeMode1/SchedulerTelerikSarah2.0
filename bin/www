@@ -78,7 +78,7 @@ function onError(error) {
 }
 
 /**
- * Event listener for HTTP server "listening" event.
+ * Event listener pour serveur HTTP "listening" event.
  */
 
 function onListening() {

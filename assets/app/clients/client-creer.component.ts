@@ -309,33 +309,33 @@ export class CreerClientComponent implements OnInit {
     }
 
     formatCP(input){
-        //j'enleve les espaces, globalement
+        //j'enleve les espaces, globalement.
         var chaine = input.value.replace(/\s+/g, "");
-        //pour ajouter l'espace au 3eme carac
+        //pour ajouter l'espace au 3eme carac.
         if(chaine.length > 3){
-            //je place l'espace à la bonne place
+            //je place l'espace à la bonne place.
             chaine = chaine.substr(0,3) + " " + chaine.substr(3,3);
         }
-        //transformer le code Postal en majuscule
+        //transformer le code Postal en majuscule.
         input.value = chaine.toUpperCase();
     }
 
     formatTP(input){
-        // je remplace tout ce qui n'est pas un chiffre par un espace, globalement
+        // j'enleve tout ce qui n'est pas chiffre, globalement.
         var chaine = input.value.replace(/[^0-9]/g, "");
         console.log(chaine);
 
-        //au 11eme carac tapé, je reconstruis le tel avec ses bons chiffres 
+        //au 11eme carac tapé, je reconstruis le tel avec ses bons chiffres.
         if(chaine.length > 10){
             chaine = chaine.substr(1,3) + chaine.substr(5,3) + chaine.substr(9,4);
         }
 
-        //au 10eme carac, je formatte selon (XXX)XXX-XXXX
+        //au 10eme carac, je formatte selon (XXX)XXX-XXXX.
         if(chaine.length === 10){
             chaine = "(" + chaine.substr(0,3) + ")" + chaine.substr(3,3) + "-" + chaine.substr(6,4);
         }
         
-        /* si ces if sont inversés, chaine non-formattée
+        /* si ces if sont inversés, chaine non-formattée.
            car au 10eme carac : 
            chaine.length > 10 et donc la chaine revient non-formattée.
         */
@@ -428,6 +428,8 @@ export class CreerClientComponent implements OnInit {
             //console.log(this.estCodePostalOK('B3V H2'));  //ok
     }
 }
+
+
 
 
 
