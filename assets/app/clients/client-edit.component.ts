@@ -333,7 +333,7 @@ export class EditClientComponent implements OnInit, OnDestroy {
                     data => console.log(data),
                     error => this._erreurService.handleErreur(error)
                 );
-                this.myClient = null;
+                //this.myClient = null;
         }   
     }
 
