@@ -49,8 +49,26 @@ export class ClientService {
                 .catch(error => Observable.throw(error.json() || 'erreur serveur'));
     }
 
-    updateClient(client: Client){
+    getClient(codeClient: number): Observable<Client>{
+        return this._http.get('http://localhost:3000/client/' + codeClient)
+            .map((response: Response) => {
+                const data = response.json().obj;
+                let client = new Client(data._id, data.noClient, data.prenom, data.nom, data.noCompte, data.courriel, data.cell, data.compagnie, data.adresse, data.ville,
+                    data.codePostal, data.telPrincipal, data.province, data.pays, data.fax, data.telSecondaire, data.memo,
+                    data.memoAVenir, data.noExTaxeProv, data.noExTaxeFed, data.selectStatut, data.selectSource, data.modifPar, data.modif, 
+                    data.dateDernEv, data.creerPar, data.dateCree);                
+                return client;
+            })
+            .catch(error => Observable.throw(error.json() || 'erreur serveur'));
+    }
 
+    updateClient(client: Client){
+        const body = JSON.stringify(client);
+        const headers = new Headers({'Content-Type': 'application/json'});
+        const token = localStorage.getItem('token') ? '?token=' + localStorage.getItem('token') : '';
+        return this._http.put('http://localhost:3000/client/' + client.clientId + token, body, {headers: headers})
+            .map((response: Response) => response.json())
+            .catch(error => Observable.throw(error.json()));
     }
 
 }

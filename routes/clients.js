@@ -25,6 +25,26 @@ router.get('/', function (req, res, next) {
         });
 });
 
+
+router.get('/:noClient', function (req, res, next) {
+    var noClient = req.params.noClient;
+    Client.findOne({
+        noClient: noClient
+    }, function (err, doc) {
+        if (err) {
+            return res.status(404).json({
+                title: 'erreur produite',
+                error: err
+            });
+        }
+        res.status(200).json({
+            message: 'succès',
+            obj: doc
+        });
+    });
+
+});
+
 /* middleware : requêtes voyagent de haut en bas. ( defensive programming)
    seulement un User loggué peut voir, créer, modifier et supprimer des clients
 */
@@ -91,6 +111,57 @@ router.post('/', function (req, res, next) {
             // TODO Nécessaire ?? doc.save();
             res.status(201).json({
                 message: 'client sauvegarder',
+                obj: result
+            });
+        });
+    });
+});
+
+/*  Modifier des clients
+    Quand le doc existe déjà, on peut faire save ce qui va l'updater.
+ */
+
+router.put('/:id', function (req, res, next) {
+    Client.findById(req.params.id, function (err, doc) {
+        if (err) {
+            return res.status(404).json({
+                title: 'erreur produite',
+                error: err
+            });
+        }
+        doc.prenom = req.body.prenom,
+            doc.nom = req.body.nom,
+            doc.noCompte = req.body.noCompte,
+            doc.courriel = req.body.courriel,
+            doc.cell = req.body.cell,
+            doc.compagnie = req.body.compagnie,
+            doc.adresse = req.body.adresse,
+            doc.ville = req.body.ville,
+            doc.codePostal = req.body.codePostal,
+            doc.telPrincipal = req.body.telPrincipal,
+            doc.province = req.body.province,
+            doc.pays = req.body.pays,
+            doc.fax = req.body.fax,
+            doc.telSecondaire = req.body.telSecondaire,
+            doc.memo = req.body.memo,
+            doc.memoAVenir = req.body.memoAVenir,
+            doc.noExTaxeProv = req.body.noExTaxeProv,
+            doc.noExTaxeFed = req.body.noExTaxeFed,
+            doc.selectStatut = req.body.selectStatut,
+            doc.selectSource = req.body.selectSource,
+            doc.modifPar = req.body.modifPar,
+            doc.modif = req.body.modif,
+            doc.dateDernEv = req.body.dateDernEv,
+            doc.creerPar = doc.prenom + " " + doc.nom
+        doc.save(function (err, result) {
+            if (err) {
+                return res.status(404).json({
+                    title: 'An error occured',
+                    error: err
+                });
+            }
+            res.status(201).json({
+                message: 'success',
                 obj: result
             });
         });

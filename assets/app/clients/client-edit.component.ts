@@ -1,6 +1,8 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { ClientService } from './client.service';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+import { Subscription } from 'rxjs/RX';
 import { Client } from './client';
 import { ErreurService } from '../erreurs/erreur.service';
 
@@ -73,7 +75,7 @@ interface ResultatValidation {
     `
     ]
 })
-export class EditClientComponent implements OnInit {
+export class EditClientComponent implements OnInit, OnDestroy {
     identification: string;
     gestion: string;
     editClientForm: FormGroup;
@@ -83,48 +85,137 @@ export class EditClientComponent implements OnInit {
     sauvegardeClient: boolean;
     myClient : Client;
     clientId: string;
+    subscription: Subscription;
+    estNouveau: boolean;
+    codeClient: number;
 
-    constructor(private _formBuilder: FormBuilder, private _clientService: ClientService, private _erreurService: ErreurService) {
+    constructor(private _formBuilder: FormBuilder, private _clientService: ClientService, private _erreurService: ErreurService,
+        private _activatedRoute: ActivatedRoute) {
         this.identification = "Identification";
         this.gestion = "Gestion";
         this.myClient = new Client();
-        this.formActualiser = false;
-        this.formCopie = false;
         this.modeSoumission = true;
-        this.sauvegardeClient = false;
      }
 
     ngOnInit() { 
-         this.editClientForm = this._formBuilder.group({
-            noClient: [''],
-            prenom: [''],
-            nom: ['', Validators.required],
-            noCompte: [''],
-            courriel: ['',  this.estCourrielOK],
-            cell: [''],
-            compagnie: [''],
-            adresse: [''],
-            ville: [''],
-            codePostal: ['', this.estCodePostalOK],
-            telPrincipal: ['', this.estTelephoneOK],
-            province: [''],
-            pays: [''],
-            fax: [''],
-            telSecondaire: [''],
-            memo: [''],
-            memoAVenir: [''],
-            noExTaxeProv: [''],
-            noExTaxeFed: [''],
-            selectStatut: [''],
-            selectSource: [''], 
-            modifPar: [''],
-            modif: [''],
-            dateDernEv: [''],
-            creePar: [''],
-            cree: ['']    
-        });
-        
+        this.subscription = this._activatedRoute.params.subscribe(
+            (params: any) => {
+                if(params.hasOwnProperty('id')){
+                    this.estNouveau = false;
+                    this.codeClient = +params['id'];
+                    this._clientService.getClient(this.codeClient)
+                        .subscribe(
+                            data => {
+                                this.myClient = data;
+                                console.log("client a modif: ");
+                                console.log(this.myClient);
+                            },
+                            error => this._erreurService.handleErreur(error)
+                        );
+                } else{
+                    this.estNouveau = true;
+                }
+                console.log(this.estNouveau);
+                //init form
+                this.creerForm();
+            }
+        );      
         //this.testCP();
+    }
+
+    creerForm(){
+        //creer
+        let noClient = null;
+        let prenom = '';
+        let nom = '';
+        let noCompte = '';
+        let courriel = '';
+        let cell = '';
+        let compagnie = '';
+        let adresse = '';
+        let ville = '';
+        let codePostal = '';
+        let telPrincipal = '';
+        let province = '';
+        let pays = '';
+        let fax = '';
+        let telSecondaire = '';
+        let memo = '';
+        let memoAVenir = '';
+        let noExTaxeProv = '';
+        let noExTaxeFed = '';
+        let selectStatut = '';
+        let selectSource = '';
+        let modifPar = '';
+        let modif = null;
+        let dateDernEv = null;
+        let creePar = '';
+        let cree = null;
+
+        if(!this.estNouveau){
+            //setter la valeur du client au form control
+            this.myClient.noClient = noClient;
+            this.myClient.prenom = prenom;
+            this.myClient.nom = nom;
+            this.myClient.noCompte = noCompte;
+            this.myClient.courriel = courriel;
+            this.myClient.cell = cell;
+            this.myClient.compagnie = compagnie;
+            this.myClient.adresse = adresse;
+            this.myClient.ville = ville;
+            this.myClient.codePostal = codePostal;
+            this.myClient.telPrincipal = telPrincipal;
+            this.myClient.province = province;
+            this.myClient.pays = pays;
+            this.myClient.fax = fax;
+            this.myClient.telSecondaire = telSecondaire;
+            this.myClient.memo = memo;
+            this.myClient.memoAVenir = memoAVenir;
+            this.myClient.noExTaxeProv = noExTaxeProv;
+            this.myClient.noExTaxeFed = noExTaxeFed;
+            this.myClient.selectStatut = selectStatut;
+            this.myClient.selectSource = selectSource;
+            this.myClient.modifPar = modifPar;
+            this.myClient.modif = modif;
+            this.myClient.dateDernEv = dateDernEv;
+            this.myClient.creerPar = creePar;
+            this.myClient.dateCree = cree;
+        }
+
+        //cree le form avec des blancs ou les valeurs du client cherché.
+         this.editClientForm = this._formBuilder.group({
+            noClient: [noClient],
+            prenom: [prenom],
+            nom: [nom, Validators.required],
+            noCompte: [noCompte],
+            courriel: [courriel, this.estCourrielOK],
+            cell: [cell],
+            compagnie: [compagnie],
+            adresse: [adresse],
+            ville: [ville],
+            codePostal: [codePostal, this.estCodePostalOK],
+            telPrincipal: [telPrincipal, this.estTelephoneOK],
+            province: [province],
+            pays: [pays],
+            fax: [fax],
+            telSecondaire: [telSecondaire],
+            memo: [memo],
+            memoAVenir: [memoAVenir],
+            noExTaxeProv: [noExTaxeProv],
+            noExTaxeFed: [noExTaxeFed],
+            selectStatut: [selectStatut],
+            selectSource: [selectSource], 
+            modifPar: [modifPar],
+            modif: [modif],
+            dateDernEv: [dateDernEv],
+            creePar: [creePar],
+            cree: [cree]    
+        });
+
+    }
+
+    ngOnDestroy(){
+        this.subscription.unsubscribe();
     }
 
     formatCP(input){
@@ -215,9 +306,11 @@ export class EditClientComponent implements OnInit {
         this.modeSoumission = false;
         this.formActualiser = true;
         this.formCopie = true;
+        console.log("cree client : ");
         console.log(this.editClientForm.value);
-        console.log('creer Client: ' + this.myClient.prenom + " " + this.myClient.nom + " " + this.myClient.courriel);
-        this._clientService.creerClient(this.myClient)
+        //IF NOUVEAU, APPEL CRÉÉ, SINON APPEL UPDATE
+        if(this.estNouveau){
+            this._clientService.creerClient(this.myClient)
             .subscribe(
                 data => { 
                     console.log('data du serveur :');
@@ -227,12 +320,21 @@ export class EditClientComponent implements OnInit {
                     this.clientId = data.clientId;
                     console.log("id de "+ data.nom + " : " + this.clientId);
                     console.log("no de client : " + data.noClient);
+                    //sauver le no de client (no de la sequence)
                     this.myClient.noClient = data.noClient;
+                    //voir le message de sauvegarde succès
                     this.sauvegardeClient = true;
             },
                 error => this._erreurService.handleErreur(error)
             );
-    
+        } else{
+            this._clientService.updateClient(this.myClient)
+                .subscribe(
+                    data => console.log(data),
+                    error => this._erreurService.handleErreur(error)
+                );
+                this.myClient = null;
+        }   
     }
 
     private testCP(){
