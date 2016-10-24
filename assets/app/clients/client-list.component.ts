@@ -77,14 +77,30 @@ import { CapitalizePipe } from '../pipes/capitalize.pipe';
 export class ClientListComponent implements OnInit {
     titre: string = "Liste des Clients";
     clients: Client[];
+    clientSelected: Client;
+    clientId: number;
     
     constructor(private _clientService: ClientService, private _erreurService: ErreurService) { }
 
     ngOnInit() {
         console.log('dans on init');
         this._clientService.getClients().subscribe(
-            data => this.clients = data,
+            data => {
+                this.clients = data;
+                //print data
+                for(let i=0; i < this.clients.length; i++){
+                    console.log(this.clients[i]);
+                }
+            },
             error => this._erreurService.handleErreur(error)
-        ); 
+        );
+    }
+
+    clientSelect(client: Client){
+        this.clientSelected = client;
+        console.log(this.clientSelected);
+        console.log(this.clientSelected.noClient);
+        this.clientId = this.clientSelected.noClient;
+        //console.log("id mongo : " + this.clientSelected.clientId);
     }
 }

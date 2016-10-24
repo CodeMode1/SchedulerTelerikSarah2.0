@@ -28,11 +28,29 @@ export class ClientService {
 
     getClients(): Observable<Client[]>{
         return this._http.get('http://localhost:3000/client')
-            .map((response: Response) => <Client[]>response.json().obj)
-                .do( data => {
-                    this.clients = data;
-                    console.log('les clients: ' + JSON.stringify(data));
+            .map((response: Response) => {
+                    //this.clients = data;
+                    //console.log('les clients: ' + JSON.stringify(data));
+                    const data = response.json().obj;
+                    let objs: any[] = [];
+                    for(let i=0; i < data.length; i++){
+                        let client = new Client(data[i]._id, data[i].noClient, data[i].prenom, data[i].nom, data[i].noCompte, data[i].courriel, data[i].cell, data[i].compagnie, data[i].adresse, data[i].ville,
+                    data[i].codePostal, data[i].telPrincipal, data[i].province, data[i].pays, data[i].fax, data[i].telSecondaire, data[i].memo, data[i].memoAVenir, data[i].noExTaxeProv, data[i].noExTaxeFed, 
+                    data[i].selectStatut, data[i].selectSource, data[i].modifPar, data[i].modif, 
+                    data[i].dateDernEv, data[i].creerPar, data[i].dateCree);
+                    objs.push(client);
+                    console.log('les clients: ' + JSON.stringify(client));
+                    };
+                    //mettre a jour le array de clients du service
+                    this.clients = objs;
+                    console.log(this.clients);
+                    return objs;
                 })
                 .catch(error => Observable.throw(error.json() || 'erreur serveur'));
     }
+
+    updateClient(client: Client){
+
+    }
+
 }

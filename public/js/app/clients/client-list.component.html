@@ -16,7 +16,7 @@
                     <span class="glyphicon glyphicon-duplicate size" aria-hidden="true">Copie</span>
                 </div>
                 <div class="widgets">
-                    <span class="glyphicon glyphicon-pencil size" aria-hidden="true">Modifier</span>
+                    <span class="glyphicon glyphicon-pencil size" aria-hidden="true"><a [routerLink]="[this.clientId, 'edit']">Modifier</a></span>
                 </div>
                 <div class="widgets">
                     <span class="glyphicon glyphicon-minus size" aria-hidden="true">Supprimer</span>
@@ -50,7 +50,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let client of clients; let i=index">
+                    <tr *ngFor="let client of clients; let i=index" (click)="clientSelect(client)">
                         <td>{{client?.noClient}}</td>
                         <td>{{client?.noCompte}}</td>
                         <td>{{client?.compagnie | capitalize}}</td>

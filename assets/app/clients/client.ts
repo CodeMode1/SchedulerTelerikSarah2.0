@@ -16,7 +16,7 @@ export class Client{
     fax: string;
     telSecondaire: string;
     memo: string;
-    memoAVenir: String;
+    memoAVenir: string;
     noExTaxeProv: string;
     noExTaxeFed: string;
     selectStatut: string;
