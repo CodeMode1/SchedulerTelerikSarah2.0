@@ -78,9 +78,12 @@ export class ClientListComponent implements OnInit {
     titre: string = "Liste des Clients";
     clients: Client[];
     clientSelected: Client;
-    clientId: number;
+    noClient: number;
+    titreModal: string;
+    confirmImp: boolean;
     
-    constructor(private _clientService: ClientService, private _erreurService: ErreurService) { }
+    constructor(private _clientService: ClientService, private _erreurService: ErreurService) { 
+    }
 
     ngOnInit() {
         console.log('dans on init');
@@ -96,11 +99,27 @@ export class ClientListComponent implements OnInit {
         );
     }
 
+    eventModal(){
+        this.titreModal= "Suppression"; 
+    }
+
     clientSelect(client: Client){
+        this.confirmImp = false;
         this.clientSelected = client;
         console.log(this.clientSelected);
         console.log(this.clientSelected.noClient);
-        this.clientId = this.clientSelected.noClient;
+        this.noClient = this.clientSelected.noClient;
         //console.log("id mongo : " + this.clientSelected.clientId);
+    }
+
+    onDelete(){
+        if(this.clientSelected !== null){
+            this._clientService.deleteClient(this.clientSelected)
+                .subscribe(
+                    data => console.log(data),
+                    error => this._erreurService.handleErreur(error)
+                );
+        }
+        this.confirmImp = true;
     }
 }

@@ -71,4 +71,12 @@ export class ClientService {
             .catch(error => Observable.throw(error.json()));
     }
 
+    deleteClient(client: Client){
+        this.clients.splice(this.clients.indexOf(client), 1);
+        const token = localStorage.getItem('token') ? '?token=' + localStorage.getItem('token') : '';
+        return this._http.delete('http://localhost:3000/client/' + client.clientId + token)
+            .map((response: Response) => response.json())
+            .catch(error => Observable.throw(error.json()));
+    }
+
 }

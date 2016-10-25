@@ -16,13 +16,31 @@
                     <span class="glyphicon glyphicon-duplicate size" aria-hidden="true">Copie</span>
                 </div>
                 <div class="widgets">
-                    <span class="glyphicon glyphicon-pencil size" aria-hidden="true"><a [routerLink]="[this.clientId, 'edit']">Modifier</a></span>
+                    <span class="glyphicon glyphicon-pencil size" aria-hidden="true"><a [routerLink]="[this.noClient, 'edit']">Modifier</a></span>
                 </div>
                 <div class="widgets">
-                    <span class="glyphicon glyphicon-minus size" aria-hidden="true">Supprimer</span>
+                    <span class="glyphicon glyphicon-minus size" aria-hidden="true"><a (click)="eventModal()" data-toggle="modal" data-target="#modalSupp" data-backdrop="static" data-keyboard="false">Supprimer</a></span>
                 </div>
                 <div class="widgets">
                     <input id="specialSearch" type="text" class="form-control" placeholder="search">
+                </div>
+            </div>
+            <!-- modal -->
+            <div id="modalSupp" class="modal fade" role="dialog">
+                <div class="modal-dialog">
+                    <!-- modal content -->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title">Confirmer la {{this.titreModal}}</h4>
+                        </div>
+                        <div class="modal-body">
+                            <p>Cliquez OK pour confirmer ou annulez.</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" [disabled]="!this.clientSelected || this.confirmImp" (click)="onDelete()" id="modalOuvert">OK</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
