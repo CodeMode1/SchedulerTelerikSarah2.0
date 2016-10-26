@@ -10,16 +10,20 @@
             </div>
             <div class="col-md-5">
                 <div class="widgets">
-                    <span class="glyphicon glyphicon-plus size" aria-hidden="true"><a [routerLink]="['creer']">Créer</a></span>
+                    <span class="glyphicon glyphicon-plus size" aria-hidden="true"><a [routerLink]="['creer']">Créer<span>Crée un nouveau client</span></a>
+                    </span>
                 </div>
                 <div class="widgets">
-                    <span class="glyphicon glyphicon-duplicate size" aria-hidden="true">Copie</span>
+                    <span class="glyphicon glyphicon-duplicate size" aria-hidden="true"><a>Copie<span>Copie le client sélectionné</span></a>
+                    </span>
                 </div>
                 <div class="widgets">
-                    <span class="glyphicon glyphicon-pencil size" aria-hidden="true"><a [routerLink]="[this.noClient, 'edit']">Modifier</a></span>
+                    <span class="glyphicon glyphicon-pencil size" aria-hidden="true"><a [routerLink]="[this.noClient, 'edit']">Modifier<span>Modifie le client sélectionné</span></a>
+                    </span>
                 </div>
                 <div class="widgets">
-                    <span class="glyphicon glyphicon-minus size" aria-hidden="true"><a (click)="eventModal()" data-toggle="modal" data-target="#modalSupp" data-backdrop="static" data-keyboard="false">Supprimer</a></span>
+                    <span class="glyphicon glyphicon-minus size" aria-hidden="true"><a (click)="eventModal()" data-toggle="modal" data-target="#modalSupp" data-backdrop="static" data-keyboard="false">Supprimer<span>Supprime le client sélectionné</span></a>
+                    </span>
                 </div>
                 <div class="widgets">
                     <input id="specialSearch" type="text" class="form-control" placeholder="search">
@@ -38,7 +42,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default" [disabled]="!this.clientSelected || this.confirmImp" (click)="onDelete()" id="modalOuvert">OK</button>
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
                         </div>
                     </div>
                 </div>

@@ -108,7 +108,6 @@ router.post('/', function (req, res, next) {
                     error: err
                 });
             }
-            // TODO Nécessaire ?? doc.save();
             res.status(201).json({
                 message: 'client sauvegarder',
                 obj: result
@@ -118,7 +117,6 @@ router.post('/', function (req, res, next) {
 });
 
 /*  Modifier un client
-    Quand le doc existe déjà, on peut faire save ce qui va l'updater.
  */
 
 router.put('/:id', function (req, res, next) {
@@ -161,10 +159,10 @@ router.put('/:id', function (req, res, next) {
                 noExTaxeFed: req.body.noExTaxeFed,
                 selectStatut: req.body.selectStatut,
                 selectSource: req.body.selectSource,
-                modifPar: req.body.modifPar,
-                modif: req.body.modif,
-                dateDernEv: req.body.dateDernEv,
-                creerPar: user.prenom + " " + user.nom
+                modifPar: user.prenom + " " + user.nom,
+                modif: new Date(),
+                dateDernEv: doc.dateDernEv,
+                creerPar: doc.creerPar
             };
             Client.findByIdAndUpdate(req.params.id, update, function (err, result) {
                 if (err) {

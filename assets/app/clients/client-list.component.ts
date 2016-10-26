@@ -49,6 +49,44 @@ import { CapitalizePipe } from '../pipes/capitalize.pipe';
             color: #000;
             display: block;
             clear: both;
+            position: relative;
+        }
+
+        a span{
+            position: absolute;
+            display:none;
+            background: rgba(20, 20, 31, 0.84);
+            text-align: center;
+            border-left: 1px solid #111;
+            border-top: 1px solid #111;
+            border-right: 1px solid #333;
+            border-bottom: 1px solid #333;
+            border-radius: 3px;
+            color: #fff;
+            font-size: 0.7em;
+            text-indent: 0;
+            width: auto;
+            height:auto;
+        }
+
+        a span:after{
+            content: ' ';
+	        height: 0;
+	        position: absolute;
+	        width: 0;
+            border: 10px solid transparent;
+	        border-top-color: #333;
+            top: 100%;
+	        left: 10px;
+        }
+
+        a:hover span{
+            display: block;
+            bottom: 1vw;
+            left:75%;
+            z-index: 9999;
+            -moz-animation: moveTooltip .25s linear;
+            -webkit-animation: moveTooltip .25s linear;
         }
 
         a:hover{
@@ -71,6 +109,50 @@ import { CapitalizePipe } from '../pipes/capitalize.pipe';
         .col-md-12 {
             padding: 2%;
         }
+
+        @-moz-keyframes moveTooltip {
+    0% {
+        -moz-transform: scale(0,0);
+        opacity: 0;
+    }
+
+    45% {
+        -moz-transform: scale(0.4,0.4);
+        opacity: 0.7;
+    }
+
+    75% {
+        -moz-transform: scale(1.3,1.3);
+        opacity: 0.4;
+    }
+
+    100% {
+        -moz-transform: scale(1,1);
+        opacity: 1;
+    };
+}
+
+@-webkit-keyframes moveTooltip {
+    0% {
+        -webkit-transform: scale(0,0);
+        opacity: 0;
+    }
+
+    45% {
+        -webkit-transform: scale(0.4,0.4);
+        opacity: 0.7;
+    }
+
+    75% {
+        -webkit-transform: scale(1.3,1.3);
+        opacity: 0.4;
+    }
+
+    100% {
+        -webkit-transform: scale(1,1);
+        opacity: 1;
+    };
+}
 
     `]
 })
