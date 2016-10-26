@@ -14,9 +14,26 @@ import { CapitalizePipe } from '../pipes/capitalize.pipe';
         }
 
         td, th{
-            text-align:left;
+            text-align: center;
             font-size: 1vw;
         }
+
+        thead > tr{
+            background-color: #fafafa;
+            border-bottom: 0.25em solid #1565c0;
+        }
+
+        tbody > tr:hover{
+            background-color: #a9d4f9;
+        }
+
+        tbody > tr{
+            border-bottom: 0.2em solid #ddd;
+        }
+
+         .estSelectRange{
+             background-color: #519BDB;
+         }
 
         h3{
             padding: 0.5% 0 0.5% 0;
@@ -43,6 +60,12 @@ import { CapitalizePipe } from '../pipes/capitalize.pipe';
         .size{
             font-size:1vw;
             text-align:center;
+        }
+
+        .disableA{
+            pointer-events: none;
+            cursor: default;
+            color: #ddd;
         }
 
         a{

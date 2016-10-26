@@ -14,15 +14,15 @@
                     </span>
                 </div>
                 <div class="widgets">
-                    <span class="glyphicon glyphicon-duplicate size" aria-hidden="true"><a>Copie<span>Copie le client sélectionné</span></a>
+                    <span class="glyphicon glyphicon-duplicate size" aria-hidden="true"><a [class.disableA]="!this.clientSelected">Copie<span>Copie le client sélectionné</span></a>
                     </span>
                 </div>
                 <div class="widgets">
-                    <span class="glyphicon glyphicon-pencil size" aria-hidden="true"><a [routerLink]="[this.noClient, 'edit']">Modifier<span>Modifie le client sélectionné</span></a>
+                    <span class="glyphicon glyphicon-pencil size" aria-hidden="true"><a [class.disableA]="!this.clientSelected" [routerLink]="[this.noClient, 'edit']">Modifier<span>Modifie le client sélectionné</span></a>
                     </span>
                 </div>
                 <div class="widgets">
-                    <span class="glyphicon glyphicon-minus size" aria-hidden="true"><a (click)="eventModal()" data-toggle="modal" data-target="#modalSupp" data-backdrop="static" data-keyboard="false">Supprimer<span>Supprime le client sélectionné</span></a>
+                    <span class="glyphicon glyphicon-minus size" aria-hidden="true"><a [class.disableA]="!this.clientSelected" (click)="eventModal()" data-toggle="modal" data-target="#modalSupp" data-backdrop="static" data-keyboard="false">Supprimer<span>Supprime le client sélectionné</span></a>
                     </span>
                 </div>
                 <div class="widgets">
@@ -52,7 +52,7 @@
             <h3>{{titre}}</h3>
         </div>
         <div class="table-responsive">
-            <table class="table table-striped table-hover">
+            <table class="table">
                 <thead>
                     <tr>
                         <th>NO CLIENT</th>
@@ -72,7 +72,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let client of clients; let i=index" (click)="clientSelect(client)">
+                    <tr *ngFor="let client of clients; let i=index" (click)="clientSelect(client)" [class.estSelectRange]="this.noClient == client.noClient">
                         <td>{{client?.noClient}}</td>
                         <td>{{client?.noCompte}}</td>
                         <td>{{client?.compagnie | capitalize}}</td>
