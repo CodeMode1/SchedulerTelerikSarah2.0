@@ -32,6 +32,7 @@ import { ClientService } from './clients/client.service';
 
 //pipes
 import { CapitalizePipe } from './pipes/capitalize.pipe';
+import { NoClientPipe } from './pipes/noClient.pipe';
 
 //nouvelles
 import { NouvellesComponent } from './login/nouvelles.component';
@@ -39,7 +40,7 @@ import { NouvellesComponent } from './login/nouvelles.component';
 @NgModule({
 declarations: [AppComponent, HeaderComponent, LogoComponent, LoginComponent, HomeComponent, SigninComponent, LogoutComponent, 
     SignupComponent, AuthComponent, ErreurComponent, ClientsComponent, EditClientComponent, ClientListComponent, NouvellesComponent,
-    CapitalizePipe], 
+    CapitalizePipe, NoClientPipe], 
 imports: [BrowserModule, FormsModule, ReactiveFormsModule, HttpModule, routing],
 bootstrap: [AppComponent],
 providers: [provide(LocationStrategy, {useClass: HashLocationStrategy}), AuthService, ErreurService, ClientService]

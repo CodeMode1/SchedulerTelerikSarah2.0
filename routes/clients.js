@@ -37,6 +37,14 @@ router.get('/:noClient', function (req, res, next) {
                 error: err
             });
         }
+        if (!doc) {
+            return res.status(404).json({
+                title: 'Client Introuvable',
+                error: {
+                    message: 'Aucun client avec ce code'
+                }
+            });
+        }
         res.status(200).json({
             message: 'succès',
             obj: doc

@@ -4,8 +4,10 @@
             <div class="col-md-7">
                 <label id="searchLabel" class="col-md-3 control-label" for="searchNumClient">Rechercher par Numéro de Client : </label>
                 <div class="input-group col-md-5">
-                    <span class="input-group-addon" aria-hidden="true" id="searchNumClient"><span class="glyphicon glyphicon-search"></span></span>
-                    <input type="text" class="form-control" placeholder="search">
+                    <span class="input-group-addon" aria-hidden="true" id="searchNumClient"><button id="boutonSearchNoClient" (click)="onSearchNoClient()" class="glyphicon glyphicon-search"></button>
+                    </span>
+                    <input #input (click)="logInput(input.value)" [class.erreurSearchClient]="erreurSearchClient" type="text" placeholder="search"
+                        class="form-control" [(ngModel)]="noClientTextSearch">
                 </div>
             </div>
             <div class="col-md-5">
@@ -72,20 +74,20 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let client of clients; let i=index" (click)="clientSelect(client)" [class.estSelectRange]="this.noClient == client.noClient">
+                    <tr *ngFor="let client of clients | noClientPipe:noClientFiltreList; let i=index" (click)="clientSelect(client)" [class.estSelectRange]="this.noClient == client.noClient">
                         <td>{{client?.noClient}}</td>
                         <td>{{client?.noCompte}}</td>
-                        <td>{{client?.compagnie | capitalize}}</td>
-                        <td>{{client?.prenom | capitalize}}</td>
-                        <td>{{client?.nom | capitalize}}</td>
+                        <td>{{client?.compagnie | capitalizePipe}}</td>
+                        <td>{{client?.prenom | capitalizePipe}}</td>
+                        <td>{{client?.nom | capitalizePipe}}</td>
                         <td>{{client?.cell}}</td>
                         <td>{{client?.courriel}}</td>
-                        <td>{{client?.adresse | capitalize}}</td>
-                        <td>{{client?.ville | capitalize}}</td>
+                        <td>{{client?.adresse | capitalizePipe}}</td>
+                        <td>{{client?.ville | capitalizePipe}}</td>
                         <td>{{client?.codePostal }}</td>
                         <td>{{client?.telPrincipal}}</td>
                         <td>{{client?.fax}}</td>
-                        <td>{{client?.creerPar | capitalize}}</td>
+                        <td>{{client?.creerPar | capitalizePipe}}</td>
                         <td>{{client?.dateCree | date:'yyyy-MM-dd HH:mm'}}</td>
                     </tr>
                     <tr *ngIf="!clients || !clients.length">
@@ -98,7 +100,7 @@
 </section>
 <div class="col-md-12 footer">
     <div class="col-md-12 divFooter">
-        <button type="button" class="btn btn-primary">
+        <button type="button" class="btn btn-primary" (click)="actualiser()">
         <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>
             Actualiser
         </button>

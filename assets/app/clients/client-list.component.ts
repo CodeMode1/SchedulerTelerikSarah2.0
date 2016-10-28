@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { Client } from './client';
 import { ClientService } from './client.service';
 import { ErreurService } from '../erreurs/erreur.service';
 import { CapitalizePipe } from '../pipes/capitalize.pipe';
+import { NoClientPipe } from '../pipes/noClient.pipe';
 
 @Component({
     moduleId: module.id,
@@ -31,7 +33,7 @@ import { CapitalizePipe } from '../pipes/capitalize.pipe';
             border-bottom: 0.2em solid #ddd;
         }
 
-         .estSelectRange{
+        .estSelectRange{
              background-color: #519BDB;
          }
 
@@ -66,6 +68,14 @@ import { CapitalizePipe } from '../pipes/capitalize.pipe';
             pointer-events: none;
             cursor: default;
             color: #ddd;
+        }
+
+        .erreurSearchClient{
+            background: #ff8080;
+        }
+
+        #boutonSearchNoClient{
+            background: #519BDB;
         }
 
         a{
@@ -180,18 +190,29 @@ import { CapitalizePipe } from '../pipes/capitalize.pipe';
     `]
 })
 export class ClientListComponent implements OnInit {
-    titre: string = "Liste des Clients";
+    titre: string;
     clients: Client[];
     clientSelected: Client;
     noClient: number;
     titreModal: string;
     confirmImp: boolean;
+    noClientTextSearch: string;
+    noClientFiltreList: string;
+    erreurSearchClient: boolean;
     
     constructor(private _clientService: ClientService, private _erreurService: ErreurService) { 
+        this.titre = "Liste des Clients";
+        this.noClientTextSearch = "";
+        this.noClientFiltreList = "";
+        this.erreurSearchClient = false;
     }
 
     ngOnInit() {
         console.log('dans on init');
+        this.getClients();   
+    }
+
+    getClients(){
         this._clientService.getClients().subscribe(
             data => {
                 this.clients = data;
@@ -226,5 +247,63 @@ export class ClientListComponent implements OnInit {
                 );
         }
         this.confirmImp = true;
+    }
+
+    onSearchNoClient(){
+        this.erreurSearchClient = false;
+        console.log("contenu input: ");
+        console.log(this.noClientTextSearch);
+        if(this.noClientTextSearch === null || (this.noClientTextSearch).toString() === ""){
+            this.noClientFiltreList = "";
+            return;
+        }
+        else if(isNaN(Number(this.noClientTextSearch))){
+            alert('pas un nombre');
+            this.erreurSearchClient = true;
+            return;
+        }
+        else if(this.noClientTextSearch.toString().length > 10){
+            alert('nombre trop gros');
+            this.erreurSearchClient = true;
+            return;
+        }
+        this._clientService.getClient(Number(this.noClientTextSearch))
+            .subscribe(
+                data => {
+                    this.noClientFiltreList = (data.noClient).toString();
+                    console.log(this.noClientFiltreList);
+                },
+                error => {
+                    alert('code invalide');
+                    this.erreurSearchClient = true;
+                    this._erreurService.handleErreur(error)
+                }
+            );
+    }
+
+    actualiser(){
+        if(this.noClientTextSearch !== null && (this.noClientTextSearch).toString() !== ""){
+            this._clientService.getClient(Number(this.noClientTextSearch))
+            .subscribe(
+                data => {
+                    this.noClientFiltreList = (data.noClient).toString();
+                    console.log(this.noClientFiltreList);
+                },
+                error => {
+                    alert('code invalide');
+                    this.erreurSearchClient = true;
+                    this._erreurService.handleErreur(error)
+                }
+            );
+            return;
+        }else{
+            this.noClientFiltreList = "";
+            this.getClients();
+        }
+        
+    }
+
+    logInput(value){
+        console.log(value);
     }
 }
