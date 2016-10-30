@@ -60,7 +60,16 @@ router.get('/search/:specialSearch', function (req, res, next) {
     var specialSearch = req.params.specialSearch;
     Client.find({
         $text: {
-            $search: specialSearch
+            $search: specialSearch,
+            $caseSensitive: false
+        }
+    }, {
+        score: {
+            $meta: "textScore"
+        }
+    }).sort({
+        score: {
+            $meta: "textScore"
         }
     }).limit(10).exec(function (err, results) {
         if (err) {
