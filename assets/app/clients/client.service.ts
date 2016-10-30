@@ -62,6 +62,26 @@ export class ClientService {
             .catch(error => Observable.throw(error.json() || 'erreur serveur'));
     }
 
+    getClientsSpecialSearch(textSearch: string): Observable<Client[]>{
+        return this._http.get('http://localhost:3000/client/search/' + textSearch)
+            .map((response: Response) => {
+                const data = response.json().obj;
+                 let objs: any[] = [];
+                    for(let i=0; i < data.length; i++){
+                        let client = new Client(data[i]._id, data[i].noClient, data[i].prenom, data[i].nom, data[i].noCompte, data[i].courriel, data[i].cell, data[i].compagnie, data[i].adresse, data[i].ville,
+                    data[i].codePostal, data[i].telPrincipal, data[i].province, data[i].pays, data[i].fax, data[i].telSecondaire, data[i].memo, data[i].memoAVenir, data[i].noExTaxeProv, data[i].noExTaxeFed, 
+                    data[i].selectStatut, data[i].selectSource, data[i].modifPar, data[i].modif, 
+                    data[i].dateDernEv, data[i].creerPar, data[i].dateCree);
+                    objs.push(client);
+                    console.log('les clients: ' + JSON.stringify(client));
+                    };
+                    this.clients = objs;
+                    console.log(this.clients);
+                    return objs;
+                })
+                .catch(error => Observable.throw(error.json() || 'erreur serveur'));
+    }
+
     updateClient(client: Client){
         const body = JSON.stringify(client);
         const headers = new Headers({'Content-Type': 'application/json'});

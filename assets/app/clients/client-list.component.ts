@@ -59,6 +59,16 @@ import { NoClientPipe } from '../pipes/noClient.pipe';
             text-align:left;
         }
 
+        #erreurCode{
+            text-align: center;
+            padding: 0 5% 0 0;
+        } 
+
+        #erreurFullSearch {
+            clear: both;
+            float: left;
+        }
+
         .size{
             font-size:1vw;
             text-align:center;
@@ -70,7 +80,7 @@ import { NoClientPipe } from '../pipes/noClient.pipe';
             color: #ddd;
         }
 
-        .erreurSearchClient{
+        .erreurSearchClient, .erreurSpecialSearch{
             background: #ff8080;
         }
 
@@ -135,6 +145,12 @@ import { NoClientPipe } from '../pipes/noClient.pipe';
             padding: 0;
         }
 
+        #boutonSpecialSearch{
+            clear: both;
+            float: left;
+            background: #519BDB;
+        }
+
         .divFooter{
             text-align:center;
         }
@@ -196,15 +212,25 @@ export class ClientListComponent implements OnInit {
     noClient: number;
     titreModal: string;
     confirmImp: boolean;
+    // no client
     noClientTextSearch: string;
     noClientFiltreList: string;
-    erreurSearchClient: boolean;
+    boolSearchClient: boolean;
+    erreurCodeClient: string;
+    // full text search
+    specialTextSearch: string;
+    boolFullSearch: boolean;
+    erreurSpecialSearch: string;
     
     constructor(private _clientService: ClientService, private _erreurService: ErreurService) { 
         this.titre = "Liste des Clients";
         this.noClientTextSearch = "";
         this.noClientFiltreList = "";
-        this.erreurSearchClient = false;
+        this.boolSearchClient = false;
+        this.erreurCodeClient = "";
+        this.specialTextSearch = "";
+        this.erreurSpecialSearch = "";
+        this.boolFullSearch = false;
     }
 
     ngOnInit() {
@@ -216,7 +242,7 @@ export class ClientListComponent implements OnInit {
         this._clientService.getClients().subscribe(
             data => {
                 this.clients = data;
-                //print data
+                //print données pour chaque client
                 for(let i=0; i < this.clients.length; i++){
                     console.log(this.clients[i]);
                 }
@@ -250,7 +276,7 @@ export class ClientListComponent implements OnInit {
     }
 
     onSearchNoClient(){
-        this.erreurSearchClient = false;
+        this.boolSearchClient = false;
         console.log("contenu input: ");
         console.log(this.noClientTextSearch);
         if(this.noClientTextSearch === null || (this.noClientTextSearch).toString() === ""){
@@ -258,13 +284,15 @@ export class ClientListComponent implements OnInit {
             return;
         }
         else if(isNaN(Number(this.noClientTextSearch))){
+            this.erreurCodeClient = "Invalide. Code Client doit être un nombre.";
             alert('pas un nombre');
-            this.erreurSearchClient = true;
+            this.boolSearchClient = true;
             return;
         }
         else if(this.noClientTextSearch.toString().length > 10){
+            this.erreurCodeClient = "Invalide. Code Client dépasse la longueur acceptée.";
             alert('nombre trop gros');
-            this.erreurSearchClient = true;
+            this.boolSearchClient = true;
             return;
         }
         this._clientService.getClient(Number(this.noClientTextSearch))
@@ -274,11 +302,36 @@ export class ClientListComponent implements OnInit {
                     console.log(this.noClientFiltreList);
                 },
                 error => {
-                    alert('code invalide');
-                    this.erreurSearchClient = true;
+                    alert('code client invalide');
+                    this.boolSearchClient = true;
                     this._erreurService.handleErreur(error)
                 }
             );
+    }
+
+    onSpecialSearch(){
+        this.boolFullSearch = false;
+        if(this.specialTextSearch === null  || (this.specialTextSearch).toString() === ""){
+            this.getClients();
+            return;
+        }
+        else if(this.specialTextSearch.toString().length > 150){
+            this.erreurSpecialSearch = "Invalide. Ne pas dépasser 150 caractères.";
+            this.boolFullSearch = true;
+            return;
+        }
+        this._clientService.getClientsSpecialSearch(this.specialTextSearch)
+            .subscribe(
+                data => {
+                    this.clients = data;
+                    console.log(this.clients);
+                },
+                error =>{
+                    alert('text search invalide');
+                    this._erreurService.handleErreur(error)
+                }
+            );
+
     }
 
     actualiser(){
@@ -291,7 +344,7 @@ export class ClientListComponent implements OnInit {
                 },
                 error => {
                     alert('code invalide');
-                    this.erreurSearchClient = true;
+                    this.boolSearchClient = true;
                     this._erreurService.handleErreur(error)
                 }
             );

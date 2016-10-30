@@ -6,9 +6,12 @@
                 <div class="input-group col-md-5">
                     <span class="input-group-addon" aria-hidden="true" id="searchNumClient"><button id="boutonSearchNoClient" (click)="onSearchNoClient()" class="glyphicon glyphicon-search"></button>
                     </span>
-                    <input #input (click)="logInput(input.value)" [class.erreurSearchClient]="erreurSearchClient" type="text" placeholder="search"
+                    <input #input (click)="logInput(input.value)" [class.erreurSearchClient]="boolSearchClient" type="text" placeholder="No Client Search"
                         class="form-control" [(ngModel)]="noClientTextSearch">
                 </div>
+                <p class="text-danger" id="erreurCode" [hidden]="!boolSearchClient">
+                    {{erreurCodeClient}}
+                </p>
             </div>
             <div class="col-md-5">
                 <div class="widgets">
@@ -23,12 +26,17 @@
                     <span class="glyphicon glyphicon-pencil size" aria-hidden="true"><a [class.disableA]="!this.clientSelected" [routerLink]="[this.noClient, 'edit']">Modifier<span>Modifie le client sélectionné</span></a>
                     </span>
                 </div>
-                <div class="widgets">
+                <div class="widgets input-group col-md-2">
                     <span class="glyphicon glyphicon-minus size" aria-hidden="true"><a [class.disableA]="!this.clientSelected" (click)="eventModal()" data-toggle="modal" data-target="#modalSupp" data-backdrop="static" data-keyboard="false">Supprimer<span>Supprime le client sélectionné</span></a>
                     </span>
                 </div>
-                <div class="widgets">
-                    <input id="specialSearch" type="text" class="form-control" placeholder="search">
+                <div class="widgets input-group col-md-5">
+                    <button id="boutonSpecialSearch" (click)="onSpecialSearch()" class="glyphicon glyphicon-search"></button>
+                    <input #input2 (click)="logInput(input2.value)" [class.erreurSpecialSearch]="boolFullSearch" type="text" placeholder="Full Text Search"
+                        class="form-control" [(ngModel)]="specialTextSearch">
+                    <p class="text-danger" id="erreurFullSearch" [hidden]="!boolFullSearch">
+                        {{erreurSpecialSearch}}
+                    </p>
                 </div>
             </div>
             <!-- modal -->
