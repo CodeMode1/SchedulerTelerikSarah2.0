@@ -12,7 +12,7 @@ import { AuthService } from '../auth/auth.service';
                 <ul class="nav nav-pills">
                     <li><a>Agenda</a></li>
                     <li><a [routerLink]="['/clients']" routerLinkActive="router-link-active">Clients</a></li>
-                    <li><a>Évènements</a></li>
+                    <li><a [routerLink]="['/evenements']" routerLinkActive="router-link-active">Évènements</a></li>
                     <li><a>Ressources</a></li>
                 </ul>
             </nav>

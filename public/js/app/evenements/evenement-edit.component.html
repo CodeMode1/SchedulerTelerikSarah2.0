@@ -1,0 +1,103 @@
+<div class="alert alert-success col-md-12" role="alert" *ngIf="this.sauvegardeClient">
+    <p>Évènement Sauvegardé: {{this.myEvenement.nom}}</p>
+</div>
+<section class="col-md-12 space">
+    <form [formGroup]="editEvenementForm" (ngSubmit)="onSubmit()">
+        <section class="col-md-12">
+            <div class="col-md-4 form-group">
+                <div class="col-md-12 outer">
+                    <label for="nom">Nom</label>
+                    <input type="text" id="nom" class="form-control" formControlName="nom" placeholder="name" [(ngModel)]="this.myEvenement.nom">
+                </div>
+                <div class="col-md-12 outer">
+                    <input type="date" id="dateEvenement" class="form-control" formControlName="dateEvenement" placeholder="event date" [(ngModel)]="this.myEvenement.dateEvenement">
+                </div>
+                <div class="col-md-12 outer">
+                    <label for="contact">Contact</label>
+                    <input type="text" id="contact" class="form-control" formControlName="contact" placeholder="contact" [(ngModel)]="this.myEvenement.contact">
+                </div>
+                <div class="col-md-12 outer">
+                    <label for="client">Client</label>
+                    <input type="text" id="client" class="form-control" formControlName="client" placeholder="client" [(ngModel)]="this.myEvenement.client">
+                </div>
+            </div>
+            <div class="col-md-4 form-group">
+                <div class="col-md-12 outer">
+                    <label for="selectEtat">État: Confirmation</label>
+                    <select class="form-control" id="selectEtat" formControlName="selectEtat" [(ngModel)]="this.myEvenement.selectEtat">
+                            <option>Soumission</option>
+                            <option>Non Retenu</option>
+                            <option>Confirmation</option>
+                            <option>Annulation</option>
+                            <option>Facturation</option>
+                        </select>
+                </div>
+                <div class="col-md-6 form-group">
+                    <input type="date" id="dateSoumission" class="form-control" formControlName="dateSoumission" placeholder="submission date"
+                        [(ngModel)]="this.myEvenement.dateSoumission">
+                </div>
+                <div class="col-md-6 form-group">
+                    <input type="date" id="dateConfirmation" class="form-control" formControlName="dateConfirmation" placeholder="confirmation date"
+                        [(ngModel)]="this.myEvenement.dateConfirmation">
+                </div>
+            </div>
+            <div class="col-md-4 form-group">
+                <div class="col-md-6 form-group">
+                    <div class="col-md-6">
+                        <label for="notes">Notes</label>
+                        <textarea id="notes" class="form-control" rows="10" formControlName="notes" [(ngModel)]="this.myEvenement.notes"></textarea>
+                    </div>
+                    <div class="col-md-6 outer">
+                        <input type="date" id="dateFacturation" class="form-control" formControlName="dateFacturation" placeholder="facturation date"
+                            [(ngModel)]="this.myEvenement.dateFacturation">
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <input type="date" id="dateNonRetenu" class="form-control" formControlName="dateNonRetenu" placeholder="unkept date" [(ngModel)]="this.myEvenement.dateNonRetenu">
+                    </div>
+                </div>
+                <div class="col-md-6 form-group">
+                    <div class="col-md-6 outer checkbox">
+                        <label><input type="checkbox" value="">Validation Tâche</label>
+                    </div>
+                    <div class="col-md-6 outer">
+                        <label>Numéro</label>
+                        <input type="text" id="noEvenement" class="form-control" formControlName="noEvenement" [(ngModel)]="this.myEvenement.noEvenement"
+                            readonly>
+                    </div>
+                    <div class="col-md-6 outer">
+                        <label>Modifié par</label>
+                        <input type="text" id="modifPar" class="form-control" formControlName="modifPar" readonly [(ngModel)]="this.myEvenement.modifPar">
+                    </div>
+                    <div class="col-md-6 outer">
+                        <label>Modifié</label>
+                        <input type="text" id="modifPar" class="form-control" formControlName="modif" readonly [(ngModel)]="this.myEvenement.modif">
+                    </div>
+                    <div class="col-md-6 outer">
+                        <input type="date" id="dateAnnulation" class="form-control" formControlName="dateAnnulation" placeholder="annulation date"
+                            [(ngModel)]="this.myEvenement.dateAnnulation">
+                    </div>
+                </div>
+            </div>
+        </section>
+        <div class="col-md-12 footer space">
+            <div class="col-md-4 divFooter">
+                <button type="button" class="btn btn-primary" [disabled]="!formActualiser">
+                        <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>
+                        Actualiser
+                    </button>
+            </div>
+            <div class="col-md-4 divFooter">
+                <button type="submit" class="btn btn-primary" [disabled]="!editClientForm.valid || !modeSoumission">
+                        <span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span>
+                        Enregistrer
+                    </button>
+            </div>
+            <div class="col-md-4 divFooter">
+                <button type="button" class="btn btn-primary" [disabled]="!formCopie">
+                        <span class="glyphicon glyphicon-print" aria-hidden="true"></span>
+                        Copie Client
+                    </button>
+            </div>
+        </div>
+    </form>
+</section>

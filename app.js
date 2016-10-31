@@ -13,7 +13,8 @@ var mongoose = require('mongoose');
 //import les routes de l'app
 var appRoutes = require('./routes/app');
 var userRoutes = require('./routes/users');
-var clientRoutes = require('./routes/clients')
+var clientRoutes = require('./routes/clients');
+var evenementRoutes = require('./routes/evenements');
 
 //Express framework.
 var app = express();
@@ -45,6 +46,7 @@ app.use(function (req, res, next) {
 //Routing: diriger les requêtes au bon routeur.
 app.use('/user', userRoutes);
 app.use('/client', clientRoutes);
+app.use('/evenement', evenementRoutes);
 app.use('/', appRoutes);
 
 //catch 404 et passe au error handler.

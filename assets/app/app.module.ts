@@ -37,12 +37,18 @@ import { NoClientPipe } from './pipes/noClient.pipe';
 //nouvelles
 import { NouvellesComponent } from './login/nouvelles.component';
 
+//evenements
+import { EvenementsComponent } from './evenements/evenements.component';
+import { EvenementListComponent } from './evenements/evenement-list.component';
+import { EvenementEditComponent } from './evenements/evenement-edit.component';
+import { EvenementService } from './evenements/evenement.service';
+
 @NgModule({
 declarations: [AppComponent, HeaderComponent, LogoComponent, LoginComponent, HomeComponent, SigninComponent, LogoutComponent, 
     SignupComponent, AuthComponent, ErreurComponent, ClientsComponent, EditClientComponent, ClientListComponent, NouvellesComponent,
-    CapitalizePipe, NoClientPipe], 
+    CapitalizePipe, NoClientPipe, EvenementsComponent, EvenementListComponent, EvenementEditComponent], 
 imports: [BrowserModule, FormsModule, ReactiveFormsModule, HttpModule, routing],
 bootstrap: [AppComponent],
-providers: [provide(LocationStrategy, {useClass: HashLocationStrategy}), AuthService, ErreurService, ClientService]
+providers: [provide(LocationStrategy, {useClass: HashLocationStrategy}), AuthService, ErreurService, ClientService, EvenementService]
 })
 export class AppModule {}
