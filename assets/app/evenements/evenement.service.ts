@@ -10,11 +10,12 @@ export class EvenementService implements OnInit {
     nomUsageLogue: string;
 
     constructor( private _http: Http) { }
-
+    
     ngOnInit(){
 
     }
-
+    
+    //data[i].client_FK._id pour modifier un evenement pour actualiser la selection par rapport au client.
     getEvenements(): Observable<Evenement[]>{
         return this._http.get('http://localhost:3000/evenement')
             .map((response: Response) => {
@@ -22,12 +23,14 @@ export class EvenementService implements OnInit {
                 let objs: any[] = [];
                 for(let i=0; i < data.length; i++){
                     let evenement = new Evenement(data[i]._id, data[i].noEvenement, data[i].nom,
-                        data[i].dateEvenement, data[i].contact, data[i].client_FK.prenom + " " + data[i].client_FK.nom,
+                        data[i].dateEvenement, data[i].contact, data[i].client,
                         data[i].selectEtat, data[i].dateSoumission, data[i].dateConfirmation, data[i].dateFacturation,
                         data[i].dateNonRetenu, data[i].dateAnnulation, data[i].notes, data[i].validationTache,
                         data[i].creerPar, data[i].dateCree, data[i].modifPar, data[i].modif);
                         objs.push(evenement);
-                        console.log('les evx construit dans le service: ' + JSON.stringify(evenement));    
+                        console.log('les evx construit dans le service: ' + JSON.stringify(evenement));
+                        console.log('client retourné : ')    
+                        console.log(data[i].client_FK);
                 };
                 // mettre a jour le array d'evx du service
                 this.evenements = objs;

@@ -14,8 +14,7 @@ var clientSchema = new Schema({
     },
     nom: {
         type: String,
-        required: true,
-        unique: true
+        required: true
     },
     noCompte: {
         type: String

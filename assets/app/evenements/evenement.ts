@@ -17,12 +17,13 @@ export class Evenement{
     dateCree: Date;
     modifPar: string;
     modif: Date;
+    client_FK: string;
 
     constructor( evenementId?: string, noEvenement?: number, nom?: string, dateEvenement?: Date,
     contact?: string, client?: string, selectEtat?: string, dateSoumission?: Date,
     dateConfirmation?: Date, dateFacturation?: Date, dateNonRetenu?: Date, 
     dateAnnulation?: Date, notes?: string, validationTache?: boolean, creerPar?: string,
-    dateCree?: Date, modifPar?: string, modif?: Date){
+    dateCree?: Date, modifPar?: string, modif?: Date, client_FK?: string){
         this.evenementId = evenementId;
         this.noEvenement = noEvenement;
         this.nom = nom;
@@ -41,5 +42,6 @@ export class Evenement{
         this.dateCree = dateCree;
         this.modifPar = modifPar;
         this.modif = modif;
+        this.client_FK = client_FK;
     }
 }
