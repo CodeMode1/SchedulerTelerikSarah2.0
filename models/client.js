@@ -3,7 +3,6 @@ var Schema = mongoose.Schema;
 var mongooseUniqueValidator = require('mongoose-unique-validator');
 var Sequence = require('../models/sequence');
 var genSequence = Sequence.generateurSequence('client');
-var Evenement = require('./evenement');
 
 var clientSchema = new Schema({
     noClient: {
@@ -96,6 +95,7 @@ clientSchema.pre('save', function (next) {
     });
 });
 
+/*
 clientSchema.pre('remove', function (next) {
     var doc = this;
     Evenement.remove({
@@ -103,6 +103,7 @@ clientSchema.pre('remove', function (next) {
     }).exec();
     next();
 });
+*/
 
 clientSchema.plugin(mongooseUniqueValidator);
 

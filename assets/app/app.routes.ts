@@ -10,12 +10,15 @@ import { CLIENT_ROUTES } from './clients/client.routes';
 import { EvenementsComponent } from './evenements/evenements.component';
 import { EVENEMENT_ROUTES } from './evenements/evenement.routes';
 
+import { AgendaComponent } from './agenda/agenda.component';
+
 
 const routes: RouterConfig = ([
     { path: '', component: HomeComponent},
     { path: 'auth', component: AuthComponent, children: USER_ROUTES },
     { path: 'clients', component: ClientsComponent, children: CLIENT_ROUTES},
-    { path: 'evenements', component: EvenementsComponent, children: EVENEMENT_ROUTES}
+    { path: 'evenements', component: EvenementsComponent, children: EVENEMENT_ROUTES},
+    { path: 'agenda', component: AgendaComponent }
 ]);
 
 export const routing = RouterModule.forRoot(routes);
